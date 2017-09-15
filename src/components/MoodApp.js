@@ -8,10 +8,14 @@ function Nav (props) {
         <li>Overview</li>
         <li>Diary Entry</li>
         <li>Admin/Analytics</li>
+        <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
+        <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
       </ul>
     </div>
   );
 }
+
+<button onClick={() => { this.props.changeRoute('planes'); }}>Planes</button>
 
 function UserForm (props) {
   return (
@@ -41,15 +45,37 @@ function SignUp (props) {
   );
 }
 
+
 export class MoodApp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      route: 'signup'
+    }
+
+  this.changeRoute = this.changeRoute.bind(this);
+  }
+  changeRoute(route) {
+    this.setState({route});
+  }
+
   render() {
+    let content = <div>ERROR: No such route</div>;
+    let routeName = this.state.route;
+
+    if (routeName == 'signin') {
+      content = <SignIn />;
+    }
+
+    if (routeName == 'signup') {
+      content = <SignUp />;
+    }
+
     return(
       <div className='wrapper'>
-        <Nav />
+        <Nav changeRoute={this.changeRoute}/>
         <h1>Mood App</h1>
-        <SignIn />
-        <SignUp />
-
+        {content}
       </div>
     );
   }
