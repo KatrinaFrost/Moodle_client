@@ -13,12 +13,30 @@ function Nav (props) {
   );
 }
 
+function UserForm (props) {
+  return (
+    <div className='signin'>
+      <input type='email' placeholder='Type your email here' autoFocus/>
+      <input type='password' placeholder='Type your password here' />
+    </div>
+  );
+}
+
 function SignIn (props) {
   return (
     <div className='signin'>
-      <input type='email' placeholder='Type your email here' />
-      <input type='password' placeholder='Type your password here' />
-      <button type='submit'>Submit</button>
+      <UserForm />
+      <button type='submit'>SignIn</button>
+    </div>
+  );
+}
+
+function SignUp (props) {
+  return (
+    <div className='signup'>
+      <UserForm />
+      <input type='password' placeholder='Confirm your password' />
+      <button type='submit' method='post'>SignUp</button>
     </div>
   );
 }
@@ -30,6 +48,8 @@ export class MoodApp extends Component {
         <Nav />
         <h1>Mood App</h1>
         <SignIn />
+        <SignUp />
+
       </div>
     );
   }
