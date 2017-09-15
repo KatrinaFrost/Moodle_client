@@ -58,6 +58,7 @@ function AboutUs (props) {
   );
 }
 
+
 class GlobalMood extends Component {
   constructor(props) {
     super(props);
@@ -81,6 +82,7 @@ export class MoodApp extends Component {
 
   this.changeRoute = this.changeRoute.bind(this);
   }
+
   changeRoute(route) {
     this.setState({route});
   }
