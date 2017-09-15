@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
+import { MoodApp } from './MoodApp'
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h3>Inner Emojis</h3>
+      <MoodApp />
       </div>
     );
   }
