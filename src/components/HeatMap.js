@@ -1,5 +1,5 @@
 import React from 'react';
-import {Calendar, CalendarControls} from 'react-yearly-calendar'
+import {Calendar} from 'react-yearly-calendar'
 
 export function HeatMap(props) {
   return ( <Calendar year = {2017} customClasses = {
