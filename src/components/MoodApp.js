@@ -179,7 +179,7 @@ export class MoodApp extends Component {
       content = <div className='wrapper'><User name={userName}/><BarChart data={[5,6,7,2,4,7]} size={[500,500]}/></div>;
     }
 
-    if (routeName === 'Diary') {
+    if (routeName === 'diary') {
       content = <Diary />;
     }
 
