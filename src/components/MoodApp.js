@@ -7,51 +7,6 @@ import {TagCanvasComponent} from './TagCanvasComponent'
 
 const SERVER_PREFIX = 'http://localhost:2000/'
 
-// const sampleMoodEntries = [{
-//     when: new Date('2017-09-01'),
-//     mood: 0
-//   }, {
-//     when: new Date('2017-09-02 10:03:00Z'),
-//     mood: 2
-//   }, {
-//     when: new Date('2017-09-03'),
-//     mood: 4
-//   }, {
-//     when: new Date('2017-09-04'),
-//     mood: 1
-//   }, {
-//     when: new Date('2017-09-05'),
-//     mood: 3
-//   }, {
-//     when: new Date('2017-09-06'),
-//     mood: 0
-//   }, {
-//     when: new Date('2017-09-07'),
-//     mood: 4
-//   }, {
-//     when: new Date('2017-09-08'),
-//     mood: 2
-//   }, {
-//     when: new Date('2017-09-09'),
-//     mood: 1
-//   }, {
-//     when: new Date('2017-09-10'),
-//     mood: 4
-//   }, {
-//     when: new Date('2017-09-12'),
-//     mood: 2
-//   }, {
-//     when: new Date('2017-09-13'),
-//     mood: 3
-//   }, {
-//     when: new Date('2017-09-14'),
-//     mood: 4
-//   }, {
-//     when: new Date('2017-09-16'),
-//     mood: 0
-//   }
-// ];
-
 class User extends Component {
   render() {
     return (
@@ -66,15 +21,15 @@ function MoodEntryForm(props) {
   return(
     <div className='mood_entry_form'>
       <h2>Hey <User name={props.name}/>! How is your mood today?</h2>
-      <img alt='moods' onClick={()=>{props.setMood(4)} } src='https://damonbraces.com/img/bethany-hamilton/emoji/DamonBraces_S016.png' />
-      <img alt='moods' onClick={()=>{props.setMood(3)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0025_large.png?v=1369543915' />
-      <img alt='moods' onClick={()=>{props.setMood(2)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0051_large.png?v=1369543585' />
-      <img alt='moods' onClick={()=>{props.setMood(1)} } src='https://4.bp.blogspot.com/-xjLbvdPaPBo/WJn4xvGuOmI/AAAAAAAAT9M/v8yMC3d7rnYcQQWIdQiizVMehoZmgY99ACLcB/s1600/tearful-emoji.png' />
-      <img alt='moods' onClick={()=>{props.setMood(0)} } src="https://t4.ftcdn.net/jpg/00/44/09/63/160_F_44096352_Owh22958YmSH8pPUXhX4RFlXXAKqESlT.jpg" />
     </div>
   );
 }
 
+// <img alt='moods' onClick={()=>{props.setMood(4)} } src='https://damonbraces.com/img/bethany-hamilton/emoji/DamonBraces_S016.png' />
+// <img alt='moods' onClick={()=>{props.setMood(3)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0025_large.png?v=1369543915' />
+// <img alt='moods' onClick={()=>{props.setMood(2)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0051_large.png?v=1369543585' />
+// <img alt='moods' onClick={()=>{props.setMood(1)} } src='https://4.bp.blogspot.com/-xjLbvdPaPBo/WJn4xvGuOmI/AAAAAAAAT9M/v8yMC3d7rnYcQQWIdQiizVMehoZmgY99ACLcB/s1600/tearful-emoji.png' />
+// <img alt='moods' onClick={()=>{props.setMood(0)} } src="https://t4.ftcdn.net/jpg/00/44/09/63/160_F_44096352_Owh22958YmSH8pPUXhX4RFlXXAKqESlT.jpg" />
 function Footer (props) {
   return (
     <div className='footer'>
