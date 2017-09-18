@@ -4,6 +4,7 @@ import {BarChart} from './TestD3'
 import {WorldMap} from './WorldMap'
 import {HeatMap} from './HeatMap'
 import {TagCanvasComponent} from './TagCanvasComponent'
+import Diary from './Diary';
 
 const SERVER_PREFIX = 'http://localhost:2000/'
 
@@ -138,7 +139,7 @@ function Nav (props) {
         <li><User name={props.name}/></li>
         <li onClick={() => {props.changeRoute('overview')}}>Overview</li>
         <li onClick={() => {props.changeRoute('globalmood')}}>Global Mood</li>
-        <li>Diary Entry</li>
+        <li onClick={() => {props.changeRoute('diary')}}>Diary</li>
         <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
         <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
         <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
@@ -221,6 +222,10 @@ export class MoodApp extends Component {
 
     if (routeName === 'overview') {
       content = <div className='wrapper'><User name={userName}/><BarChart data={[5,6,7,2,4,7]} size={[500,500]}/></div>;
+    }
+
+    if (routeName === 'Diary') {
+      content = <Diary />;
     }
 
     if (routeName === 'signin') {
