@@ -201,6 +201,7 @@ export class MoodApp extends Component {
   componentDidMount(){
     this.getUsers();
     this.getMoods();
+
   }
 
   render() {
