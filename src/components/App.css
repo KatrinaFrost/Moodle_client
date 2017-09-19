@@ -34,6 +34,10 @@
   font-family: sans-serif;
 }
 
+.mood_entry_form {
+  text-align: center;
+}
+
 .user {
   color: red;
   display: inline-block;

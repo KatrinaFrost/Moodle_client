@@ -22,15 +22,16 @@ function MoodEntryForm(props) {
   return(
     <div className='mood_entry_form'>
       <h2>Hey <User name={props.name}/>! How is your mood today?</h2>
+      <img alt='moods' onClick={()=>{props.setMood(4)} } src='https://damonbraces.com/img/bethany-hamilton/emoji/DamonBraces_S016.png' />
+      <img alt='moods' onClick={()=>{props.setMood(3)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0025_large.png?v=1369543915' />
+      <img alt='moods' onClick={()=>{props.setMood(2)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0051_large.png?v=1369543585' />
+      <img alt='moods' onClick={()=>{props.setMood(1)} } src='https://4.bp.blogspot.com/-xjLbvdPaPBo/WJn4xvGuOmI/AAAAAAAAT9M/v8yMC3d7rnYcQQWIdQiizVMehoZmgY99ACLcB/s1600/tearful-emoji.png' />
+      <img alt='moods' onClick={()=>{props.setMood(0)} } src="https://t4.ftcdn.net/jpg/00/44/09/63/160_F_44096352_Owh22958YmSH8pPUXhX4RFlXXAKqESlT.jpg" />
+      <p className='explain_user'>Record your daily mood by <strong>click</strong>ing on one of the emojis. You can change the record as many times as you like <strong>on the same day</strong>.</p>
     </div>
   );
 }
 
-// <img alt='moods' onClick={()=>{props.setMood(4)} } src='https://damonbraces.com/img/bethany-hamilton/emoji/DamonBraces_S016.png' />
-// <img alt='moods' onClick={()=>{props.setMood(3)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0025_large.png?v=1369543915' />
-// <img alt='moods' onClick={()=>{props.setMood(2)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0051_large.png?v=1369543585' />
-// <img alt='moods' onClick={()=>{props.setMood(1)} } src='https://4.bp.blogspot.com/-xjLbvdPaPBo/WJn4xvGuOmI/AAAAAAAAT9M/v8yMC3d7rnYcQQWIdQiizVMehoZmgY99ACLcB/s1600/tearful-emoji.png' />
-// <img alt='moods' onClick={()=>{props.setMood(0)} } src="https://t4.ftcdn.net/jpg/00/44/09/63/160_F_44096352_Owh22958YmSH8pPUXhX4RFlXXAKqESlT.jpg" />
 function Footer (props) {
   return (
     <div className='footer'>
@@ -172,8 +173,9 @@ export class MoodApp extends Component {
     let userName = this.state.current_user_id ? this.state.users.filter((user) => { return user.id === this.state.current_user_id; })[0].name : '';
 
     if (routeName === 'home') {
-      content = <div className='wrapper'><TagCanvasComponent /><MoodEntryForm name={userName} setMood={this.setMood}/><HeatMap moodEntries={this.state.moodEntries}/></div>;
+      content = <div className='wrapper'><MoodEntryForm name={userName} setMood={this.setMood}/><HeatMap moodEntries={this.state.moodEntries}/></div>;
     }
+    // <TagCanvasComponent />
 
     if (routeName === 'overview') {
       content = <div className='wrapper'><User name={userName}/><BarChart data={[5,6,7,2,4,7]} size={[500,500]}/></div>;
