@@ -1,0 +1,39 @@
+body {
+  background-color: red;
+}
+
+.Diary {
+  background-color: orange;
+  width: 90%;
+}
+
+.entry {
+  background-color: yellow;
+}
+
+.date {
+  background-color: green;
+  font-size: 30px;
+}
+
+.note {
+  background-color: blue;
+  font-size: 20px;
+}
+
+h1 {
+  background-color: pink;
+  font-size: 40px;
+}
+
+.add-entry, button {
+  background-color: purple;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+textarea {
+  background-color: violet;
+  width: 98%;
+}

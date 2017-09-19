@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import './Diary.css';
 
-// a page component to add into app.js and home.js to route
 class DiaryEntry extends Component {
   constructor (props) {
     super(props);
@@ -63,13 +63,6 @@ export default class Diary extends Component {
     };
   }
 
-
-  // this.onDiaryEntryChange('happy');
-  //  const r1 = sentiment('Cats are stupid.');
-  //  console.dir(r1); // Score: -2, Comparative: -0.666
-
-  
-
   onDiaryEntryChange(entry) {
     this.setState({entry});
   }
@@ -87,7 +80,6 @@ export default class Diary extends Component {
     return (
       <div className="Diary">
         <DiaryEntry addEntry={(entry) => this.addEntry(entry)} />
-        <h3>Diary Entry Date </h3>
         <EntryList entries={this.state.entries} />
       </div>
     );
