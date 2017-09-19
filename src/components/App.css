@@ -1,3 +1,38 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.user_page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -5,7 +40,11 @@
   align-items: center;
 }
 
-.nav {
+.prompt_user {
+  padding: 20px 0 40px 0;
+}
+
+.navbar {
   height: 90px;
   display: flex;
   flex-direction: column;
@@ -23,7 +62,8 @@
   background-color: #69b26b;
   color: #fff;
   width: 100%;
-  height: 70px;
+  height: 8%;
+  min-height: 50px;
   font-size: 15px;
   position: fixed;
   bottom: 0;
@@ -36,6 +76,55 @@
 
 .mood_entry_form {
   text-align: center;
+}
+
+.moods_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.moods img {
+  border-bottom: 1px solid #4a4a4a;
+  border-right: 1px solid #4a4a4a;
+  padding-bottom: 30px;
+  margin: 30px;
+  border-radius: 20px;
+
+}
+
+.selected {
+  background-color: lightgreen;
+  border-radius: 20px;
+
+}
+.moods {
+  border-radius: 20px;
+
+}
+
+.moods p {
+  padding: 5px;
+  font-size: 10px;
+  color: #4a4a4a;
+
+}
+
+.explain_user {
+  color: #4a4a4a;
+  font-size: 11px;
+  margin: 20px;
+
+}
+
+
+.message {
+  color: #257507;
+}
+
+.message.hidden {
+  visibility: hidden;
 }
 
 .user {
@@ -66,5 +155,9 @@ img {
   width: 60px;
   height: 60px;
   padding: 10px;
-  margin: 30px 0;
+  margin: 30px 0 0 0;
+}
+
+img+p {
+  margin-top: -55px;
 }
