@@ -18,16 +18,51 @@ class User extends Component {
   }
 }
 
-function MoodEntryForm(props) {
+function MoodEntryForm (props) {
+  const moods = [{
+    id: 0,
+    name: 'Energetic',
+    img: 'https://t4.ftcdn.net/jpg/00/44/09/63/160_F_44096352_Owh22958YmSH8pPUXhX4RFlXXAKqESlT.jpg'
+  },{
+    id: 1,
+    name: 'Relaxed',
+    img: 'https://4.bp.blogspot.com/-xjLbvdPaPBo/WJn4xvGuOmI/AAAAAAAAT9M/v8yMC3d7rnYcQQWIdQiizVMehoZmgY99ACLcB/s1600/tearful-emoji.png'
+  },{
+    id: 2,
+    name: 'Calm',
+    img: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0051_large.png?v=1369543585'
+  },{
+    id: 3,
+    name: 'Sad',
+    img: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0025_large.png?v=1369543915'
+  },{
+    id: 4,
+    name: 'Happy',
+    img: 'https://damonbraces.com/img/bethany-hamilton/emoji/DamonBraces_S016.png'
+  },];
+
+  let moodName = props.mood === null ? 'Nothing is selected.' : moods.filter((mood) => {
+    return mood.id === props.mood;
+  })[0].name;
+
   return(
     <div className='mood_entry_form'>
-      <h2>Hey <User name={props.name}/>! How is your mood today?</h2>
-      <img alt='moods' onClick={()=>{props.setMood(4)} } src='https://damonbraces.com/img/bethany-hamilton/emoji/DamonBraces_S016.png' />
-      <img alt='moods' onClick={()=>{props.setMood(3)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0025_large.png?v=1369543915' />
-      <img alt='moods' onClick={()=>{props.setMood(2)} } src='https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0051_large.png?v=1369543585' />
-      <img alt='moods' onClick={()=>{props.setMood(1)} } src='https://4.bp.blogspot.com/-xjLbvdPaPBo/WJn4xvGuOmI/AAAAAAAAT9M/v8yMC3d7rnYcQQWIdQiizVMehoZmgY99ACLcB/s1600/tearful-emoji.png' />
-      <img alt='moods' onClick={()=>{props.setMood(0)} } src="https://t4.ftcdn.net/jpg/00/44/09/63/160_F_44096352_Owh22958YmSH8pPUXhX4RFlXXAKqESlT.jpg" />
-      <p className='explain_user'>Record your daily mood by <strong>click</strong>ing on one of the emojis. You can change the record as many times as you like <strong>on the same day</strong>.</p>
+      <h2 className='prompt_user'>Hey <User name={props.name}/>! How is your mood today?</h2>
+      <div className='explain_user'>
+        <p>Record your daily mood by <strong>click</strong>ing on one of the emojis.</p>
+        <p>You can change the record as many times as you like <strong>on the same day</strong>.</p>
+      </div>
+      <div className='moods_wrapper'>
+        { moods.map((mood) => {
+          return (
+            <div onClick={()=>{props.setMood(mood.id)}} className={props.mood == mood.id ? 'moods selected' : 'moods'}>
+              <img alt='moods' src={mood.img} />
+              <p>{mood.name}</p>
+            </div>
+          );
+        })}
+      </div>
+      <p className={props.mood === null ? 'message hidden' : 'message'}>Your mood {moodName} is recorded in the Moods Calendar.</p>
     </div>
   );
 }
@@ -89,7 +124,7 @@ class GlobalMood extends Component {
 
 function Nav (props) {
   return (
-    <div className='nav'>
+    <div className='navbar'>
       <ul>
         <li className='mood_logo' onClick={() => {props.changeRoute('home')}}>Inner Emoji</li>
         <li><User name={props.name}/></li>
@@ -113,7 +148,8 @@ export class MoodApp extends Component {
       route: window.location.hash ? window.location.hash.slice(1) : 'home',
       users: [],
       current_user_id: null,
-      moodEntries: []
+      moodEntries: [],
+      mood: null
     }
 
   this.changeRoute = this.changeRoute.bind(this);
@@ -122,15 +158,15 @@ export class MoodApp extends Component {
   this.getMoods = this.getMoods.bind(this);
   }
 
+
   setMood(mood) {
-    // this.setState((prevState, props) => {
-    //   return {
-    //     moodEntries: prevState.moodEntries.concat({
-    //       when: new Date(),
-    //       mood: mood
-    //     })
-    //   }
-    // })
+
+    this.setState((prevState, props) => {
+      return {
+        mood: mood
+      }
+    });
+
     axios.post(SERVER_PREFIX + 'mood_entry.json', { mood_entry: {
       user_id: 1,
       when: new Date(),
@@ -173,7 +209,7 @@ export class MoodApp extends Component {
     let userName = this.state.current_user_id ? this.state.users.filter((user) => { return user.id === this.state.current_user_id; })[0].name : '';
 
     if (routeName === 'home') {
-      content = <div className='wrapper'><MoodEntryForm name={userName} setMood={this.setMood}/><HeatMap moodEntries={this.state.moodEntries}/></div>;
+      content = <div className='user_page'><MoodEntryForm name={userName} setMood={this.setMood} mood={this.state.mood} /><HeatMap moodEntries={this.state.moodEntries}/></div>;
     }
     // <TagCanvasComponent />
 
@@ -206,7 +242,7 @@ export class MoodApp extends Component {
     }
 
     return(
-      <div className='wrapper'>
+      <div className='container'>
         <Nav changeRoute={this.changeRoute} name={userName}/>
         {content}
         <Footer />
