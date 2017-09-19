@@ -71,18 +71,41 @@ export default class Diary extends Component {
   }
 
   addEntry(entry){
-    let entriesData = this.state.entries.slice();
-    let id = entriesData.length;
-    let date = moment().format("MMM Do YY");
-    let entryTransformed = { id: id, date: date.toString(), note: entry };
-    entriesData.push(entryTransformed);
-    this.setState({ entries: entriesData });
+
+    // post data to Ruby.
+    axios.post(SERVER_PREFIX + 'diary/', {
+      diary_entry: entry
+    })
+    .then(function (response) { // this promise returns a valid response.
+
+      // once the data has been stored in Ruby - bind it to the view.
+      // We could bind to the view before?
+      let entriesData = this.state.entries.slice();
+      let id = entriesData.length;
+      let date = moment().format("MMM Do YY");
+      let entryTransformed = { id: id, date: date.toString(), note: entry };
+      entriesData.push(entryTransformed);
+      this.setState({ entries: entriesData });
+
+      console.log(response);
+
+    })
+    .catch(function (error) { // catch api error if not successful
+      console.log(error);
+    });
+
+    // axios.post(SERVER_PREFIX + '/diaries/new',
+    //   .then((results) => {
+    //     console.log('Hello', results);
+    //   })
+
   }
 
   getDiary() {
     axios.get(SERVER_PREFIX + 'diary.json').then((results) => {
       let entryResults = [];
       for (var i = 0; i < results.data.length; i++) {
+        results.data[i].id = i; // fix.
         entryResults.push(results.data[i].diary_entry);
       }
       this.setState({
@@ -110,51 +133,3 @@ export default class Diary extends Component {
     );
   }
 };
-
-
-// axios.post(SERVER_PREFIX + 'diary_entry.json', { diary_entry: {
-//   user_id: 1,
-//   diary_entry: diary_entry
-// }}).then(() =>{
-//   this.getDiary();
-// });
-// }
-//
-// componentDidMount(){
-//   this.getDiary();
-// }
-//
-// this.changeRoute = this.changeRoute.bind(this);
-// this.setDiary = this.setDiary.bind(this);
-// this.getDiaries = this.getDiaries.bind(this);
-// }
-
-
-// axios.post(SERVER_PREFIX + 'mood_entry.json', { mood_entry: {
-//   user_id: 1,
-//   when: new Date(),
-//   mood: mood
-// }}).then(() =>{
-//   this.getMoods();
-// });
-// }
-
-// getUsers() {
-//   axios.get(SERVER_PREFIX + 'user.json').then((results) => {
-//     this.setState({
-//       users: results.data,
-//       current_user_id: results.data[2].id
-//     });
-//   });
-// }
-
-// componentDidMount(){
-//   this.getUsers();
-//   this.getMoods();
-//
-// }
-
-// this.changeRoute = this.changeRoute.bind(this);
-// this.setMood = this.setMood.bind(this);
-// this.getMoods = this.getMoods.bind(this);
-// }
