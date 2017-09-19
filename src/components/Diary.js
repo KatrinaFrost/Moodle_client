@@ -3,6 +3,8 @@ import axios from 'axios';
 import moment from 'moment';
 import './Diary.css';
 
+const SERVER_PREFIX = 'http://localhost:2000/'
+
 class DiaryEntry extends Component {
   constructor (props) {
     super(props);
@@ -23,11 +25,11 @@ class DiaryEntry extends Component {
   render() {
     return (
       <div className="diary-entry">
-        <h1>Diary</h1>
-        <textArea
+        <h1 className="diaryH1">Diary</h1>
+        <textArea className="diaryTextArea"
           value={this.state.entry}
           onChange={this.onInputChange} />
-          <button
+          <button className="diaryButton"
             onClick={event => this.onSubmit()}
             onChange={event => this.onInputChange(event.target.value)}
             className="add-entry">

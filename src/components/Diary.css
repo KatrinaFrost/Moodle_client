@@ -17,19 +17,19 @@
   font-size: 20px;
 }
 
-h1 {
+.diaryH1 {
   background-color: pink;
   font-size: 40px;
 }
 
-.add-entry, button {
+.add-entry, .diaryButton {
   background-color: purple;
   width: 100%;
   font-family: sans-serif;
   font-size: 20px;
 }
 
-textarea {
+.diaryTextArea {
   background-color: violet;
   width: 98%;
 }
