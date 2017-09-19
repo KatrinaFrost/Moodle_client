@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Calendar} from 'react-yearly-calendar'
 
 function HeatMapCalendar (props) {
-  if (!props.calenderView) {
+  if (props.calenderView) {
     return null;
   }
 
@@ -34,7 +34,7 @@ export class HeatMap extends Component {
     return (
       <div className='heat_map_calendar'>
         <button onClick={this.handleToggleClick} >
-          {this.state.showCalender ? 'Hide Moods Calendar' : 'Get an overview of your mood'}
+          {this.state.showCalender ? 'Get an overview of your mood' : 'Hide Moods Calendar'}
         </button>
         <HeatMapCalendar calenderView={this.state.showCalender} moodEntries={this.props.moodEntries}/>
       </div>
