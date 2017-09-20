@@ -23,6 +23,8 @@ body {
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   flex: 1;
 }
 
@@ -159,9 +161,31 @@ img {
 }
 
 /* User SignIn Form */
+
+.signup {
+  display: flex;
+  flex-grow: 1;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/emojis/beach.jpg');
+  background-size: cover;
+
+}
+
 form {
+  width: 450px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 12px 15px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.44);
+  border-radius: 2px;
+  height: 600px;
+  background-color: rgba(105,178,107,0.55);
+}
+
+form:hover {
+  background-color: rgba(105,178,107,0.66);
+
 }

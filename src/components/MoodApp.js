@@ -148,18 +148,20 @@ class SignUp extends Component {
 
   render() {
     return (
-      <form onSubmit={ this._handleSubmit }>
-        <h3>Please Sign Up Here:</h3>
-        <br />
+      <div className='signup'>
+        <form onSubmit={ this._handleSubmit }>
+          <h3>Please Sign Up Here:</h3>
+          <br />
 
-        Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
-        <br />
-        Password: <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
-        <br />
-        Confirm Password: <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
-        <br />
-        <button type='submit' method='post'>Sign Up</button>
-      </form>
+          Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+          <br />
+          Password: <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+          <br />
+          Confirm Password: <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
+          <br />
+          <button type='submit' method='post'>Sign Up</button>
+        </form>
+      </div>
     );
   }
 }
@@ -269,7 +271,7 @@ export class MoodApp extends Component {
   render() {
     let content = <div>ERROR: No such route</div>;
     let routeName = this.state.route;
-    let userName = this.state.current_user_id ? this.state.users.filter((user) => { return user.id === this.state.current_user_id; })[0].name : '';
+    let userName = this.state.current_user_id ? this.state.users.filter((user) => { return user.id === this.state.current_user_id; })[0].name : 'Guest';
 
     if (routeName === 'home') {
       content = <div className='user_page'><MoodEntryForm name={userName} setMood={this.setMood} mood={this.state.mood} /><HeatMap moodEntries={this.state.moodEntries}/></div>;
