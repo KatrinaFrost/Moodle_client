@@ -21,24 +21,24 @@ class User extends Component {
 function MoodEntryForm (props) {
   const moods = [{
     id: 0,
-    name: 'Energetic',
-    img: 'https://t4.ftcdn.net/jpg/00/44/09/63/160_F_44096352_Owh22958YmSH8pPUXhX4RFlXXAKqESlT.jpg'
+    name: 'Sad',
+    img: './emojis/sad.png'
   },{
     id: 1,
-    name: 'Relaxed',
-    img: 'https://4.bp.blogspot.com/-xjLbvdPaPBo/WJn4xvGuOmI/AAAAAAAAT9M/v8yMC3d7rnYcQQWIdQiizVMehoZmgY99ACLcB/s1600/tearful-emoji.png'
+    name: 'Calm',
+    img: './emojis/calm.png'
   },{
     id: 2,
-    name: 'Calm',
-    img: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0051_large.png?v=1369543585'
+    name: 'Energetic',
+    img: './emojis/energetic.png'
   },{
     id: 3,
-    name: 'Sad',
-    img: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0025_large.png?v=1369543915'
+    name: 'Relaxed',
+    img: './emojis/relaxed.png'
   },{
     id: 4,
     name: 'Happy',
-    img: 'https://damonbraces.com/img/bethany-hamilton/emoji/DamonBraces_S016.png'
+    img: './emojis/happy.png'
   },];
 
   let moodName = props.mood === null ? 'Nothing is selected.' : moods.filter((mood) => {
@@ -62,7 +62,7 @@ function MoodEntryForm (props) {
           );
         })}
       </div>
-      <p className={props.mood === null ? 'message hidden' : 'message'}>Your mood {moodName} is recorded in the Moods Calendar.</p>
+      <p className={props.mood === null ? 'message hidden' : 'message'}>Your mood <strong>{moodName}</strong> is recorded in the Moods Calendar.</p>
     </div>
   );
 }
