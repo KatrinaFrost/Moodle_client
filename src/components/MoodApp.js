@@ -101,40 +101,22 @@ class SignUp extends Component {
     this._handleSubmit = this._handleSubmit.bind(this);
 
     this._handleChangeEmail = this._handleChangeEmail.bind(this);
-    // this._handleEmail = this._handleEmail.bind(this);
-
-    // this._handleSubmitPassword = this._handleSubmitPassword.bind(this);
     this._handleChangePassword = this._handleChangePassword.bind(this);
-
-    // this._handleConfirmPassword = this._handleConfirmPassword.bind(this);
     this._handleConfirmChange = this._handleConfirmChange.bind(this);
   }
 
   _handleConfirmChange(c) {
     this.setState( { password_confirmation: c.target.value } );
   }
-  // _handleConfirmPassword(c) {
-  //   c.preventDefault();
-  //   this.props.onSubmit( this.state.password_confirmation );
-  // }
 
   _handleChangePassword(p) {
     this.setState( { password: p.target.value } );
   }
-  // _handleSubmitPassword(p) {
-  //   p.preventDefault();
-  //   this.props.onSubmit( this.state.password );
-  // }
 
   _handleChangeEmail(e) {
     this.setState( { email: e.target.value } );
     // console.log( t.target.value );
   }
-  // _handleEmail(e) {
-  //   e.preventDefault();
-  //   // console.log( 'submit', this.state.email );
-  //   this.props.onSubmit( this.state.email );
-  // }
 
   _handleSubmit(f) {
     f.preventDefault(f);
@@ -164,6 +146,7 @@ class SignUp extends Component {
         <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
         <br />
         <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
+        <br />
         <button type='submit' method='post'>SignUp</button>
       </form>
     );

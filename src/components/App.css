@@ -79,7 +79,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .moods img {
@@ -88,7 +87,6 @@ body {
   padding-bottom: 30px;
   margin: 30px;
   border-radius: 20px;
-
 }
 
 .selected {
@@ -97,12 +95,11 @@ body {
   -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
   -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
   box-shadow:         3px 3px 5px 6px #ccc;
-
 }
+
 .moods {
   border-radius: 20px;
   margin: 10px;
-
 
 }
 
@@ -114,14 +111,12 @@ body {
   padding: 5px;
   font-size: 10px;
   color: #4a4a4a;
-
 }
 
 .explain_user {
   color: #4a4a4a;
   font-size: 11px;
   margin: 20px;
-
 }
 
 
@@ -161,4 +156,12 @@ img {
 
 .emoji_caption {
   margin-top: -55px;
+}
+
+/* User SignIn Form */
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
