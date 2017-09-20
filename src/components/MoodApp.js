@@ -88,14 +88,53 @@ function UserForm (props) {
 
 // turn the function into a class
 class SignIn extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { email: 'anna@ga.co', password: 'chicken' };
+    this._handleSubmit = this._handleSubmit.bind(this);
+
+    this._handleChangeEmail = this._handleChangeEmail.bind(this);
+    this._handleChangePassword = this._handleChangePassword.bind(this);
+  }
+
+  _handleChangePassword(p) {
+    this.setState( { password: p.target.value } );
+  }
+
+  _handleChangeEmail(e) {
+    this.setState( { email: e.target.value } );
+    // console.log( t.target.value );
+  }
+
+  _handleSubmit(si) {
+    si.preventDefault(si);
+    console.log(this.state);
+    this.getUser();
+  }
+
+  getUser() {
+    axios.post( `${SERVER_PREFIX}login`, {
+        email: this.state.email,
+        password: this.state.password,
+    }).then(function (result) {
+      console.log( result );
+      // Once find the user information
+      // SignIn to user homepage
+      // THINKING STAGE correct ???
+
+      this.props.onLogin(result.data);
+      //  console.log(this.state);
+
+    }.bind(this));
+  }
 
   render() {
     return (
-      <form className='signin'>
+      <form className='signin' onSubmit={ this._handleSubmit }>
         <h3>Please Sign In Here:</h3>
-        <input type='email' placeholder='Type your email here' autoFocus/>
+        <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
         <br />
-        <input type='password' placeholder='Type your password here' />
+        <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
         <br />
         <button type='submit' method='post'>Sign In</button>
       </form>
@@ -143,6 +182,9 @@ class SignUp extends Component {
       }
     }).then(function (result) {
       console.log( result );
+      // Once a user SignUp, send the data to the back-end
+      // save the user
+      // Go to the user's home page
     })
   }
 
@@ -220,6 +262,7 @@ export class MoodApp extends Component {
   this.setMood = this.setMood.bind(this);
   this.getUsers = this.getUsers.bind(this);
   this.getMoods = this.getMoods.bind(this);
+  this.getUser = this.getUser.bind(this);
   }
 
 
@@ -252,6 +295,11 @@ export class MoodApp extends Component {
         current_user_id: results.data[2].id
       });
     });
+  }
+
+  // user login
+  getUser(user) {
+    this.setState({ current_user_id: user.id, email: user.emai });
   }
 
   getMoods() {
@@ -287,7 +335,7 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'signin') {
-      content = <SignIn />;
+      content = <SignIn onLogin={ this.getUser } />;
     }
 
     if (routeName === 'signup') {
