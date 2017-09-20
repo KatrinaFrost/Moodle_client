@@ -40,7 +40,7 @@ function MoodEntryForm (props) {
     id: 4,
     name: 'Happy',
     img: './emojis/happy.png'
-  },];
+  }];
 
   let moodName = props.mood === null ? 'Nothing is selected.' : moods.filter((mood) => {
     return mood.id === props.mood;
@@ -369,7 +369,7 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'analytics') {
-      content = (<BarChart data={[4,3,3,2,4,1]} size={[500,500]}/>);
+      content = (<BarChart data={[4,3,3,2,4,1]} labels={['sad', 'happy']} size={[500,500]}/>);
     }
 
     if (routeName === 'globalmood') {
