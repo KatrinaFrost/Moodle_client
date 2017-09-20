@@ -141,13 +141,14 @@ class SignUp extends Component {
       <form onSubmit={ this._handleSubmit }>
         Please Sign Up Here:
         <br />
-        <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+
+        Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } />
         <br />
-        <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+        Password: <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
         <br />
-        <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
+        Confirm Password: <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
         <br />
-        <button type='submit' method='post'>SignUp</button>
+        <button type='submit' method='post'>Sign Up</button>
       </form>
     );
   }
