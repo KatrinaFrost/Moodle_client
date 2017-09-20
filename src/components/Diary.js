@@ -127,7 +127,7 @@ export default class Diary extends Component {
         <DiaryEntry addEntry={(entry) => this.addEntry(entry)} />
         <EntryList entries={this.state.entries} />
         {this.state.entries.map((entry, index) => (
-          <p key={index}>{entry}</p> )
+          <h4 key={index}>{entry}</h4> )
         )}
       </div>
     );
