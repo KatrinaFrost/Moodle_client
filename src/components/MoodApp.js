@@ -86,7 +86,6 @@ function UserForm (props) {
 }
 
 
-// turn the function into a class
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -188,9 +187,6 @@ class SignUp extends Component {
       }
     }).then(function (result) {
       console.log( result );
-      // Once a user SignUp, send the data to the back-end
-      // save the user
-      // Go to the user's home page
     })
   }
 
@@ -304,7 +300,6 @@ export class MoodApp extends Component {
     });
   }
 
-  // user login
   getUser(user) {
     this.setState({ current_user_id: user.id, email: user.emai });
   }
@@ -320,7 +315,6 @@ export class MoodApp extends Component {
   componentDidMount(){
     this.getUsers();
     this.getMoods();
-
   }
 
   render() {
