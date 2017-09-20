@@ -146,6 +146,7 @@ class SignUp extends Component {
         <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
         <br />
         <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
+        <br />
         <button type='submit' method='post'>SignUp</button>
       </form>
     );
