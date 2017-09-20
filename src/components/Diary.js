@@ -52,12 +52,12 @@ class DiaryEntry extends Component {
 
 const EntryList = (props) => {
   console.log(props);
-  const entries = props.entries.map((entry) => {
+  const entries = props.entries.map((entry, i) => {
+    var [text, date] = entry;
     return (
-      <div className="entry" key={entry.id}>
-        <h4 className="date"> {entry[1]}</h4>
-        <h4 className="text">{entry[0]}</h4>
-        <div className="note">{entry.note}</div>
+      <div className="entry" key={i}>
+        <h4 className="date"> {date.split('-').reverse().join('-')}</h4>
+        <h4 className="text">{text}</h4>
       </div>
     );
   });
@@ -65,9 +65,9 @@ const EntryList = (props) => {
 
 // ------------------------------- //
   return (
-    <ul className="">
+    <div className="entryContainer">
       {entries}
-    </ul>
+    </div>
   );
 };
 
@@ -137,7 +137,7 @@ export default class Diary extends Component {
 // ------------------------------- //
   render() {
     return (
-      <div className="Diary">
+      <div className="diary">
         <DiaryEntry addEntry={(entry) => this.addEntry(entry)} />
         <EntryList entries={this.state.entries} />
       </div>
