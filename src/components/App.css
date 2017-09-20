@@ -63,9 +63,8 @@ body {
   color: #fff;
   width: 100%;
   height: 8%;
-  min-height: 50px;
+  min-height: 40px;
   font-size: 15px;
-  position: fixed;
   bottom: 0;
 }
 
@@ -143,12 +142,6 @@ input, button {
   text-align: center;
   margin: 5px;
   min-width: 200px;
-}
-
-button {
-  display: block;
-  width: 200px;
-  margin: auto;
 }
 
 img {

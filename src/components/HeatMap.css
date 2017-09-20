@@ -15,6 +15,28 @@ table.calendar thead {
   border-bottom: 2px solid white
 }
 
+ /*----------------------------------- Custom CSS --------------------------*/
+.heat_map_calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.heatmap_button {
+  display: block;
+  width: 200px;
+  margin: 20px;
+  padding: 20px;
+
+}
+td {
+  width: 50px;
+  height: 30px;
+}
 
 table.calendar thead th {
   font-weight: normal;
