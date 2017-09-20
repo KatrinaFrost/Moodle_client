@@ -90,7 +90,7 @@ function UserForm (props) {
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: 'anna@ga.co', password: 'chicken' };
+    this.state = { email: 'amanda@ga.co', password: 'chicken' };
     this._handleSubmit = this._handleSubmit.bind(this);
 
     this._handleChangeEmail = this._handleChangeEmail.bind(this);
@@ -108,23 +108,21 @@ class SignIn extends Component {
 
   _handleSubmit(si) {
     si.preventDefault(si);
-    console.log(this.state);
     this.getUser();
   }
 
   getUser() {
-    axios.post( `${SERVER_PREFIX}login`, {
-        email: this.state.email,
-        password: this.state.password,
-    }, {withCredentials: true}).then(function (result) {
-      console.log( result );
+    axios.post(`${SERVER_PREFIX}login`, {
+      email: this.state.email,
+      password: this.state.password,
+    }, {
+      withCredentials: true
+    }).then(function (result) {
       // Once find the user information
       // SignIn to user homepage
       // THINKING STAGE correct ???
-
-      this.props.onLogin(result.data);
+      this.props.login(result.data);
       //  console.log(this.state);
-
     }.bind(this));
   }
 
@@ -230,19 +228,30 @@ class GlobalMood extends Component {
 
 function Nav (props) {
   return (
-    <div className='navbar'>
-      <ul>
-        <li className='mood_logo' onClick={() => {props.changeRoute('home')}}>Inner Emoji</li>
-        <li><User name={props.name}/></li>
-        <li onClick={() => {props.changeRoute('overview')}}>Overview</li>
-        <li onClick={() => {props.changeRoute('globalmood')}}>Global Mood</li>
-        <li onClick={() => {props.changeRoute('diary')}}>Diary</li>
-        <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
-        <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
-        <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
-        <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
-        <li onClick={() => {props.changeRoute('home')}}>Home</li>
-      </ul>
+    <div>
+      <div className='navbar'>
+        <ul>
+          <li className='mood_logo' onClick={() => {props.changeRoute('home')}}>Inner Emoji</li>
+          <li onClick={() => {props.changeRoute('overview')}}>Overview</li>
+          <li onClick={() => {props.changeRoute('globalmood')}}>Global Mood</li>
+          <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
+          <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
+          <li onClick={() => {props.changeRoute('signin')}}>Create a Diary</li>
+        </ul>
+      </div>
+
+
+      { props.user &&
+      <div className='navbar'>
+        <ul>
+          <li><User name={props.user.email}/></li>
+          <li onClick={() => {props.changeRoute('diary')}}>Diary</li>
+          <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
+          <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
+          <li onClick={() => {props.changeRoute('home')}}>Home</li>
+          <li onClick={props.logout}>LogOut</li>
+        </ul>
+      </div>}
     </div>
   );
 }
@@ -252,17 +261,17 @@ export class MoodApp extends Component {
     super(props);
     this.state = {
       route: window.location.hash ? window.location.hash.slice(1) : 'home',
+      user: null,
       users: [],
-      current_user_id: null,
       moodEntries: [],
       mood: null
     }
-
-  this.changeRoute = this.changeRoute.bind(this);
-  this.setMood = this.setMood.bind(this);
-  this.getUsers = this.getUsers.bind(this);
-  this.getMoods = this.getMoods.bind(this);
-  this.getUser = this.getUser.bind(this);
+    this.changeRoute = this.changeRoute.bind(this);
+    this.setMood = this.setMood.bind(this);
+    this.getUsers = this.getUsers.bind(this);
+    this.getMoods = this.getMoods.bind(this);
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
 
@@ -292,14 +301,25 @@ export class MoodApp extends Component {
     axios.get(SERVER_PREFIX + 'users.json').then((results) => {
       this.setState({
         users: results.data,
-        current_user_id: results.data[2].id
+        current_user_id: results.data.id
       });
     });
   }
 
-  // user login
-  getUser(user) {
-    this.setState({ current_user_id: user.id, email: user.emai });
+  logout() {
+    axios.delete(SERVER_PREFIX + 'login').then((results) => {
+      this.setState({
+        user: null,
+        route: 'aboutus'
+      });
+    });
+  }
+
+  login(user) {
+    this.setState({
+      user: user,
+      route: 'home'
+    });
   }
 
   getMoods() {
@@ -319,15 +339,21 @@ export class MoodApp extends Component {
   render() {
     let content = <div>ERROR: No such route</div>;
     let routeName = this.state.route;
-    let userName = this.state.current_user_id ? this.state.users.filter((user) => { return user.id === this.state.current_user_id; })[0].name : 'Guest';
+    // let userName = this.state.user ? this.state.user.email : 'Guest';
 
     if (routeName === 'home') {
-      content = <div className='user_page'><MoodEntryForm name={userName} setMood={this.setMood} mood={this.state.mood} /><HeatMap moodEntries={this.state.moodEntries}/></div>;
+      content = <div className='user_page'><MoodEntryForm name={this.state.user ? this.state.user.name : 'Guest'} setMood={this.setMood} mood={this.state.mood} />
+        <HeatMap moodEntries={this.state.moodEntries}/>
+      </div>;
     }
+
+    // if (routeName === 'home') {
+    //   content = <div className='user_page'><MoodEntryForm name={userName} setMood={this.setMood} mood={this.state.mood} /><HeatMap moodEntries={this.state.moodEntries}/></div>;
+    // }
     // <TagCanvasComponent />
 
     if (routeName === 'overview') {
-      content = <div className='wrapper'><User name={userName}/><BarChart data={[5,6,7,2,4,7]} size={[500,500]}/></div>;
+      content = <div className='wrapper'><User name={this.state.user}/><BarChart data={[5,6,7,2,4,7]} size={[500,500]}/></div>;
     }
 
     if (routeName === 'diary') {
@@ -335,7 +361,7 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'signin') {
-      content = <SignIn onLogin={ this.getUser } />;
+      content = <SignIn login={this.login} />;
     }
 
     if (routeName === 'signup') {
@@ -356,7 +382,7 @@ export class MoodApp extends Component {
 
     return(
       <div className='container'>
-        <Nav changeRoute={this.changeRoute} name={userName}/>
+        <Nav changeRoute={this.changeRoute} user={this.state.user} logout={this.logout}/>
         {content}
         <Footer />
       </div>
