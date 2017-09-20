@@ -5,6 +5,7 @@ import {WorldMap} from './WorldMap'
 import {HeatMap} from './HeatMap'
 import {TagCanvasComponent} from './TagCanvasComponent'
 import Diary from './Diary';
+import DropDown from './DropDown'
 
 const SERVER_PREFIX = 'http://localhost:2000/'
 
@@ -123,7 +124,6 @@ class SignIn extends Component {
   }
 }
 
-
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -206,7 +206,7 @@ class GlobalMood extends Component {
   render() {
     return (
       <div className='globalmood'>
-        <p>Mood Globe Coming soon... in googlemaps or in a text globe</p>
+        <p>Mood Globe Coming soon... but it did not unfortunately. Although, we have D3 global map.</p>
       </div>
     );
   }
@@ -214,29 +214,29 @@ class GlobalMood extends Component {
 
 function Nav (props) {
   return (
-    <div>
+    <div className='nav_wrapper'>
       <div className='navbar'>
+        { !props.user &&
         <ul>
-          <li className='mood_logo' onClick={() => {props.changeRoute('home')}}>Inner Emoji</li>
-          <li onClick={() => {props.changeRoute('overview')}}>Overview</li>
+          <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
           <li onClick={() => {props.changeRoute('globalmood')}}>Global Mood</li>
           <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
           <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
-          <li onClick={() => {props.changeRoute('signin')}}>Create a Diary</li>
+          <li onClick={() => {props.changeRoute('overview')}}>Overview</li>
+          <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
           <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
-        </ul>
-      </div>
-
-
-      { props.user &&
-      <div className='navbar'>
+        </ul> }
+        { props.user &&
         <ul>
+          <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
+          <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
+          <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
+          <li onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
+          <li onClick={() => {props.changeRoute('home')}}><DropDown changeRoute={props.changeRoute} /></li>
           <li><User name={props.user.email}/></li>
-          <li onClick={() => {props.changeRoute('diary')}}>Diary</li>
-          <li onClick={() => {props.changeRoute('home')}}>Home</li>
           <li onClick={props.logout}>LogOut</li>
-        </ul>
-      </div>}
+        </ul> }
+      </div>
     </div>
   );
 }
@@ -245,15 +245,18 @@ export class MoodApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      route: window.location.hash ? window.location.hash.slice(1) : 'home',
+      route: window.location.hash ? window.location.hash.slice(1) : 'overview',
       user: null,
       users: [],
       moodEntries: [],
-      mood: null
+      mood: null,
+      words: [],
     }
+
     this.changeRoute = this.changeRoute.bind(this);
     this.setMood = this.setMood.bind(this);
     this.getUsers = this.getUsers.bind(this);
+    this.getWords = this.getWords.bind(this);
     this.getMoods = this.getMoods.bind(this);
     this.setUser = this.setUser.bind(this);
     this.logout = this.logout.bind(this);
@@ -289,6 +292,13 @@ export class MoodApp extends Component {
     });
   }
 
+  getWords() {
+    axios.get(SERVER_PREFIX + 'words').then((results) => {
+      this.setState({
+        words: results.data,
+      })
+    })
+  }
 
   getMoods() {
     axios.get(SERVER_PREFIX + 'mood_entry.json',{
@@ -323,6 +333,10 @@ export class MoodApp extends Component {
     this.setState({route});
   }
 
+  componentDidMount() {
+    this.getWords();
+  }
+
   render() {
     let content = <div>ERROR: No such route</div>;
     let routeName = this.state.route;
@@ -334,7 +348,8 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'overview') {
-      content = <div className='wrapper'><User name={this.state.user}/><BarChart data={[5,6,7,2,4,7]} size={[500,500]}/></div>;
+      content = <div className='wrapper'><User name={this.state.user}/><TagCanvasComponent words={this.state.words}/>
+    </div>;
     }
 
     if (routeName === 'diary') {
