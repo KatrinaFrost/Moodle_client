@@ -75,17 +75,6 @@ function Footer (props) {
   )
 }
 
-// move UserForm into SignIn & SignUp
-function UserForm (props) {
-  return (
-    <div className='signin'>
-      <input type='email' placeholder='Type your email here' autoFocus/>
-      <input type='password' placeholder='Type your password here' />
-    </div>
-  );
-}
-
-
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -102,7 +91,6 @@ class SignIn extends Component {
 
   _handleChangeEmail(e) {
     this.setState( { email: e.target.value } );
-    // console.log( t.target.value );
   }
 
   _handleSubmit(si) {
@@ -117,11 +105,7 @@ class SignIn extends Component {
     }, {
       withCredentials: true
     }).then(function (result) {
-      // Once find the user information
-      // SignIn to user homepage
-      // THINKING STAGE correct ???
-      this.props.login(result.data);
-      //  console.log(this.state);
+      this.props.setUser(result.data);
     }.bind(this));
   }
 
@@ -166,12 +150,10 @@ class SignUp extends Component {
 
   _handleChangeEmail(e) {
     this.setState( { email: e.target.value } );
-    // console.log( t.target.value );
   }
 
   _handleSubmit(f) {
     f.preventDefault(f);
-    console.log(this.state);
     this.saveUser();
   }
 
@@ -183,9 +165,11 @@ class SignUp extends Component {
         password: this.state.password,
         password_confirmation: this.state.password_confirmation
       }
+    },{
+      withCredentials: true
     }).then(function (result) {
-      console.log( result );
-    })
+      this.props.setUser(result.data);
+    }.bind(this))
   }
 
   render() {
@@ -194,9 +178,9 @@ class SignUp extends Component {
         <form onSubmit={ this._handleSubmit }>
           <h3>Please Sign Up Here:</h3>
           <br />
-          Name: <input type='text' placeholder='Type your name here' onInput={ this._handleNameChange } value={ this.state.name } />
+          Name: <input type='text' placeholder='Type your name here' onInput={ this._handleNameChange } value={ this.state.name } autoFocus />
           <br />
-          Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+          Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } />
           <br />
           Password: <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
           <br />
@@ -208,7 +192,6 @@ class SignUp extends Component {
     );
   }
 }
-
 
 function AboutUs (props) {
   return (
@@ -240,6 +223,7 @@ function Nav (props) {
           <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
           <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
           <li onClick={() => {props.changeRoute('signin')}}>Create a Diary</li>
+          <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
         </ul>
       </div>
 
@@ -249,8 +233,6 @@ function Nav (props) {
         <ul>
           <li><User name={props.user.email}/></li>
           <li onClick={() => {props.changeRoute('diary')}}>Diary</li>
-          <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
-          <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
           <li onClick={() => {props.changeRoute('home')}}>Home</li>
           <li onClick={props.logout}>LogOut</li>
         </ul>
@@ -273,13 +255,52 @@ export class MoodApp extends Component {
     this.setMood = this.setMood.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.getMoods = this.getMoods.bind(this);
-    this.login = this.login.bind(this);
+    this.setUser = this.setUser.bind(this);
     this.logout = this.logout.bind(this);
   }
 
+  getUsers() {
+    axios.get(SERVER_PREFIX + 'users.json',{
+      withCredentials: true
+    }).then((results) => {
+      this.setState({
+        users: results.data
+      });
+    });
+  }
+
+  setUser(user) {
+    this.setState({
+      user: user,
+      route: 'home'
+    });
+    this.getUsers();
+    this.getMoods();
+  }
+
+  logout() {
+    axios.delete(SERVER_PREFIX + 'login',{
+      withCredentials: true
+    }).then((results) => {
+      this.setState({
+        user: null,
+        route: 'aboutus'
+      });
+    });
+  }
+
+
+  getMoods() {
+    axios.get(SERVER_PREFIX + 'mood_entry.json',{
+      withCredentials: true
+    }).then((results) => {
+      this.setState({
+        moodEntries: results.data,
+      })
+    })
+  }
 
   setMood(mood) {
-
     this.setState((prevState, props) => {
       return {
         mood: mood
@@ -290,7 +311,9 @@ export class MoodApp extends Component {
       user_id: 1,
       when: new Date(),
       mood: mood
-    }}).then(() =>{
+    }},{
+      withCredentials: true
+    }).then(() => {
       this.getMoods();
     });
   }
@@ -300,59 +323,15 @@ export class MoodApp extends Component {
     this.setState({route});
   }
 
-  getUsers() {
-    axios.get(SERVER_PREFIX + 'users.json').then((results) => {
-      this.setState({
-        users: results.data,
-        current_user_id: results.data.id
-      });
-    });
-  }
-
-  logout() {
-    axios.delete(SERVER_PREFIX + 'login').then((results) => {
-      this.setState({
-        user: null,
-        route: 'aboutus'
-      });
-    });
-  }
-
-  login(user) {
-    this.setState({
-      user: user,
-      route: 'home'
-    });
-  }
-
-  getMoods() {
-    axios.get(SERVER_PREFIX + 'mood_entry.json').then((results) => {
-      this.setState({
-        moodEntries: results.data,
-      })
-    })
-  }
-
-  componentDidMount(){
-    this.getUsers();
-    this.getMoods();
-  }
-
   render() {
     let content = <div>ERROR: No such route</div>;
     let routeName = this.state.route;
-    // let userName = this.state.user ? this.state.user.email : 'Guest';
 
     if (routeName === 'home') {
       content = <div className='user_page'><MoodEntryForm name={this.state.user ? this.state.user.name : 'Guest'} setMood={this.setMood} mood={this.state.mood} />
         <HeatMap moodEntries={this.state.moodEntries}/>
       </div>;
     }
-
-    // if (routeName === 'home') {
-    //   content = <div className='user_page'><MoodEntryForm name={userName} setMood={this.setMood} mood={this.state.mood} /><HeatMap moodEntries={this.state.moodEntries}/></div>;
-    // }
-    // <TagCanvasComponent />
 
     if (routeName === 'overview') {
       content = <div className='wrapper'><User name={this.state.user}/><BarChart data={[5,6,7,2,4,7]} size={[500,500]}/></div>;
@@ -363,11 +342,11 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'signin') {
-      content = <SignIn login={this.login} />;
+      content = <SignIn setUser={this.setUser} />;
     }
 
     if (routeName === 'signup') {
-      content = <SignUp />;
+      content = <SignUp setUser={this.setUser}/>;
     }
 
     if (routeName === 'aboutus') {
