@@ -182,7 +182,7 @@ export class MoodApp extends Component {
   }
 
   getUsers() {
-    axios.get(SERVER_PREFIX + 'user.json').then((results) => {
+    axios.get(SERVER_PREFIX + 'users.json').then((results) => {
       this.setState({
         users: results.data,
         current_user_id: results.data[2].id

@@ -33,7 +33,7 @@ export class HeatMap extends Component {
   render() {
     return (
       <div className='heat_map_calendar'>
-        <button onClick={this.handleToggleClick} >
+        <button className='heatmap_button' onClick={this.handleToggleClick} >
           {this.state.showCalender ? 'Get an overview of your mood' : 'Hide Moods Calendar'}
         </button>
         <HeatMapCalendar calenderView={this.state.showCalender} moodEntries={this.props.moodEntries}/>
