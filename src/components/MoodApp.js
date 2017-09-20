@@ -55,9 +55,9 @@ function MoodEntryForm (props) {
       <div className='moods_wrapper'>
         { moods.map((mood) => {
           return (
-            <div onClick={()=>{props.setMood(mood.id)}} className={props.mood == mood.id ? 'moods selected' : 'moods'}>
-              <img alt='moods' src={mood.img} />
-              <p>{mood.name}</p>
+            <div key={mood.id} onClick={()=>{props.setMood(mood.id)}} className={props.mood === mood.id ? 'moods selected' : 'moods'}>
+              <img alt='moods' src={mood.img} key={mood.id}/>
+              <p className='emoji_caption'>{mood.name}</p>
             </div>
           );
         })}

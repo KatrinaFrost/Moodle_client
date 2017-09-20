@@ -158,6 +158,6 @@ img {
   margin: 30px 0 0 0;
 }
 
-img+p {
+.emoji_caption {
   margin-top: -55px;
 }
