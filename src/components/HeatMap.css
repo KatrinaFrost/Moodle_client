@@ -15,6 +15,29 @@ table.calendar thead {
   border-bottom: 2px solid white
 }
 
+ /*----------------------------------- Custom CSS --------------------------*/
+.heat_map_calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.heatmap_button {
+  display: block;
+  width: 200px;
+  margin: 20px;
+  padding: 20px;
+
+}
+
+td {
+  min-width: 50px;
+  height: 30px;
+}
 
 table.calendar thead th {
   font-weight: normal;
@@ -188,7 +211,7 @@ table.calendar td.mood-0:hover .day-number {
 }
 
 table.calendar td.mood-0:hover:after {
-  content: '😥';
+  content: '😟';
   font-size: 20px;
   padding: 0;
   margin: 0;
@@ -199,7 +222,7 @@ table.calendar td.mood-1:hover .day-number {
 }
 
 table.calendar td.mood-1:hover:after {
-  content: '😌';
+  content: '😊';
   font-size: 20px;
   padding: 0;
   margin: 0;
@@ -210,7 +233,7 @@ table.calendar td.mood-2:hover .day-number {
 }
 
 table.calendar td.mood-2:hover:after {
-  content: '😠';
+  content: '😉';
   font-size: 20px;
   padding: 0;
   margin: 0;
@@ -221,7 +244,7 @@ table.calendar td.mood-3:hover .day-number {
 }
 
 table.calendar td.mood-3:hover:after {
-  content: '😐';
+  content: '😌';
   font-size: 20px;
   padding: 0;
   margin: 0;
@@ -232,7 +255,7 @@ table.calendar td.mood-4:hover .day-number {
 }
 
 table.calendar td.mood-4:hover:after {
-  content: '😀';
+  content: '😊';
   font-size: 20px;
   padding: 0;
   margin: 0;

@@ -21,24 +21,24 @@ class User extends Component {
 function MoodEntryForm (props) {
   const moods = [{
     id: 0,
-    name: 'Energetic',
-    img: 'https://t4.ftcdn.net/jpg/00/44/09/63/160_F_44096352_Owh22958YmSH8pPUXhX4RFlXXAKqESlT.jpg'
+    name: 'Sad',
+    img: './emojis/sad.png'
   },{
     id: 1,
-    name: 'Relaxed',
-    img: 'https://4.bp.blogspot.com/-xjLbvdPaPBo/WJn4xvGuOmI/AAAAAAAAT9M/v8yMC3d7rnYcQQWIdQiizVMehoZmgY99ACLcB/s1600/tearful-emoji.png'
+    name: 'Calm',
+    img: './emojis/calm.png'
   },{
     id: 2,
-    name: 'Calm',
-    img: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0051_large.png?v=1369543585'
+    name: 'Energetic',
+    img: './emojis/energetic.png'
   },{
     id: 3,
-    name: 'Sad',
-    img: 'https://cdn.shopify.com/s/files/1/0185/5092/products/persons-0025_large.png?v=1369543915'
+    name: 'Relaxed',
+    img: './emojis/relaxed.png'
   },{
     id: 4,
     name: 'Happy',
-    img: 'https://damonbraces.com/img/bethany-hamilton/emoji/DamonBraces_S016.png'
+    img: './emojis/happy.png'
   },];
 
   let moodName = props.mood === null ? 'Nothing is selected.' : moods.filter((mood) => {
@@ -62,7 +62,7 @@ function MoodEntryForm (props) {
           );
         })}
       </div>
-      <p className={props.mood === null ? 'message hidden' : 'message'}>Your mood {moodName} is recorded in the Moods Calendar.</p>
+      <p className={props.mood === null ? 'message hidden' : 'message'}>Your mood <strong>{moodName}</strong> is recorded in the Moods Calendar.</p>
     </div>
   );
 }
@@ -75,6 +75,7 @@ function Footer (props) {
   )
 }
 
+// move UserForm into SignIn & SignUp
 function UserForm (props) {
   return (
     <div className='signin'>
@@ -84,24 +85,127 @@ function UserForm (props) {
   );
 }
 
-function SignIn (props) {
-  return (
-    <div className='signin'>
-      <UserForm />
-      <button type='submit'>SignIn</button>
-    </div>
-  );
+
+// turn the function into a class
+class SignIn extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { email: 'anna@ga.co', password: 'chicken' };
+    this._handleSubmit = this._handleSubmit.bind(this);
+
+    this._handleChangeEmail = this._handleChangeEmail.bind(this);
+    this._handleChangePassword = this._handleChangePassword.bind(this);
+  }
+
+  _handleChangePassword(p) {
+    this.setState( { password: p.target.value } );
+  }
+
+  _handleChangeEmail(e) {
+    this.setState( { email: e.target.value } );
+    // console.log( t.target.value );
+  }
+
+  _handleSubmit(si) {
+    si.preventDefault(si);
+    console.log(this.state);
+    this.getUser();
+  }
+
+  getUser() {
+    axios.post( `${SERVER_PREFIX}login`, {
+        email: this.state.email,
+        password: this.state.password,
+    }).then(function (result) {
+      console.log( result );
+      // Once find the user information
+      // SignIn to user homepage
+      // THINKING STAGE correct ???
+
+      this.props.onLogin(result.data);
+      //  console.log(this.state);
+
+    }.bind(this));
+  }
+
+  render() {
+    return (
+      <form className='signin' onSubmit={ this._handleSubmit }>
+        <h3>Please Sign In Here:</h3>
+        <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+        <br />
+        <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+        <br />
+        <button type='submit' method='post'>Sign In</button>
+      </form>
+    );
+  }
 }
 
-function SignUp (props) {
-  return (
-    <div className='signup'>
-      <UserForm />
-      <input type='password' placeholder='Confirm your password' />
-      <button type='submit' method='post'>SignUp</button>
-    </div>
-  );
+
+class SignUp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { email: 'anna@ga.co', password: 'chicken', password_confirmation: 'chicken' };
+    this._handleSubmit = this._handleSubmit.bind(this);
+
+    this._handleChangeEmail = this._handleChangeEmail.bind(this);
+    this._handleChangePassword = this._handleChangePassword.bind(this);
+    this._handleConfirmChange = this._handleConfirmChange.bind(this);
+  }
+
+  _handleConfirmChange(c) {
+    this.setState( { password_confirmation: c.target.value } );
+  }
+
+  _handleChangePassword(p) {
+    this.setState( { password: p.target.value } );
+  }
+
+  _handleChangeEmail(e) {
+    this.setState( { email: e.target.value } );
+    // console.log( t.target.value );
+  }
+
+  _handleSubmit(f) {
+    f.preventDefault(f);
+    console.log(this.state);
+    this.saveUser();
+  }
+
+  saveUser() {
+    axios.post( `${SERVER_PREFIX}users`, {
+      user: {
+        email: this.state.email,
+        password: this.state.password,
+        password_confirmation: this.state.password_confirmation
+      }
+    }).then(function (result) {
+      console.log( result );
+      // Once a user SignUp, send the data to the back-end
+      // save the user
+      // Go to the user's home page
+    })
+  }
+
+  render() {
+    return (
+      <form onSubmit={ this._handleSubmit }>
+        <h3>Please Sign Up Here:</h3>
+        <br />
+
+        Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+        <br />
+        Password: <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+        <br />
+        Confirm Password: <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
+        <br />
+        <button type='submit' method='post'>Sign Up</button>
+      </form>
+    );
+  }
 }
+
 
 function AboutUs (props) {
   return (
@@ -156,6 +260,7 @@ export class MoodApp extends Component {
   this.setMood = this.setMood.bind(this);
   this.getUsers = this.getUsers.bind(this);
   this.getMoods = this.getMoods.bind(this);
+  this.getUser = this.getUser.bind(this);
   }
 
 
@@ -188,6 +293,11 @@ export class MoodApp extends Component {
         current_user_id: results.data[2].id
       });
     });
+  }
+
+  // user login
+  getUser(user) {
+    this.setState({ current_user_id: user.id, email: user.emai });
   }
 
   getMoods() {
@@ -223,7 +333,7 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'signin') {
-      content = <SignIn />;
+      content = <SignIn onLogin={ this.getUser } />;
     }
 
     if (routeName === 'signup') {
