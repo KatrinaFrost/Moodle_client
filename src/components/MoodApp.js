@@ -5,6 +5,7 @@ import {WorldMap} from './WorldMap'
 import {HeatMap} from './HeatMap'
 import {TagCanvasComponent} from './TagCanvasComponent'
 import Diary from './Diary';
+import DropDown from './DropDown'
 
 const SERVER_PREFIX = 'http://localhost:2000/'
 
@@ -213,28 +214,29 @@ class GlobalMood extends Component {
 
 function Nav (props) {
   return (
-    <div>
+    <div className='nav_wrapper'>
       <div className='navbar'>
+        { !props.user &&
         <ul>
           <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
-          <li onClick={() => {props.changeRoute('overview')}}>Overview</li>
           <li onClick={() => {props.changeRoute('globalmood')}}>Global Mood</li>
           <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
           <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
-          <li onClick={() => {props.changeRoute('signin')}}>Create a Diary</li>
+          <li onClick={() => {props.changeRoute('overview')}}>Overview</li>
+          <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
           <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
-        </ul>
-      </div>
-
-      { props.user &&
-      <div className='navbar'>
+        </ul> }
+        { props.user &&
         <ul>
+          <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
+          <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
+          <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
+          <li onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
+          <li onClick={() => {props.changeRoute('home')}}><DropDown changeRoute={props.changeRoute} /></li>
           <li><User name={props.user.email}/></li>
-          <li onClick={() => {props.changeRoute('diary')}}>Diary</li>
-          <li onClick={() => {props.changeRoute('home')}}>Home</li>
           <li onClick={props.logout}>LogOut</li>
-        </ul>
-      </div>}
+        </ul> }
+      </div>
     </div>
   );
 }
@@ -346,7 +348,8 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'overview') {
-      content = <div className='wrapper'><User name={this.state.user}/><TagCanvasComponent words={this.state.words}/></div>;
+      content = <div className='wrapper'><User name={this.state.user}/><TagCanvasComponent words={this.state.words}/>
+    </div>;
     }
 
     if (routeName === 'diary') {
