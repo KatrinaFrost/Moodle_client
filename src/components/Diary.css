@@ -1,10 +1,14 @@
 .diaryH1 {
   color: #16a085;
+  font-family: sans-serif;
+  width: 100%;
+  border-bottom: 1px;
+
 }
 
 .Diary {
-  background-color: orange;
   width: 90%;
+  padding-top: 5px;
 
 }
 
@@ -18,23 +22,39 @@
   font-family: sans-serif;
 }
 
-.note {
-  background-color: blue;
+h4 {
   font-size: 20px;
+  min-width: 200px;
+  padding-left: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: sans-serif;
+  margin-left: 100px;
+  margin-right: 100px;
+  padding-top: 10px;
+  min-width: 200px;
+  border: 1px solid #16a085;
+
 }
 
-.add-entry, .diaryButton {
-  padding-top: 10px;
-  width: 100%;
-  background-image: linear-gradient(to right, #69b26b 0%, #16a085 51%, #69b26b 100%);
+.add-entry {
+  padding: 10px;
+  width: 10%;
+  min-width: 200px;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 2px;
   font-family: sans-serif;
+  color: white;
+  background-color: #16a085;
+  border-radius: 5px;
+  box-shadow: none;
+
 }
 
-.add-entry, .diaryButton :hover {
-  background-position: right center; /* change the direction of the change here */
+.add-entry:hover {
+  background-position: right center;
+
 }
 
 .diaryTextArea {
@@ -46,6 +66,8 @@
   box-shadow: 0 0 5px 3px #grey;
   color: #666;
   outline: none;
-  height:23px;
-  width: 99%;
+  height:100px;
+  width: 70%;
+  min-width: 300px;
+  margin-bottom: 20px;
 }
