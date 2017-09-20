@@ -93,15 +93,83 @@ function SignIn (props) {
   );
 }
 
-function SignUp (props) {
-  return (
-    <div className='signup'>
-      <UserForm />
-      <input type='password' placeholder='Confirm your password' />
-      <button type='submit' method='post'>SignUp</button>
-    </div>
-  );
+
+class SignUp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { email: 'anna@ga.co', password: 'chicken', password_confirmation: 'chicken' };
+    this._handleSubmit = this._handleSubmit.bind(this);
+
+    this._handleChangeEmail = this._handleChangeEmail.bind(this);
+    // this._handleEmail = this._handleEmail.bind(this);
+
+    // this._handleSubmitPassword = this._handleSubmitPassword.bind(this);
+    this._handleChangePassword = this._handleChangePassword.bind(this);
+
+    // this._handleConfirmPassword = this._handleConfirmPassword.bind(this);
+    this._handleConfirmChange = this._handleConfirmChange.bind(this);
+  }
+
+  _handleConfirmChange(c) {
+    this.setState( { password_confirmation: c.target.value } );
+  }
+  // _handleConfirmPassword(c) {
+  //   c.preventDefault();
+  //   this.props.onSubmit( this.state.password_confirmation );
+  // }
+
+  _handleChangePassword(p) {
+    this.setState( { password: p.target.value } );
+  }
+  // _handleSubmitPassword(p) {
+  //   p.preventDefault();
+  //   this.props.onSubmit( this.state.password );
+  // }
+
+  _handleChangeEmail(e) {
+    this.setState( { email: e.target.value } );
+    // console.log( t.target.value );
+  }
+  // _handleEmail(e) {
+  //   e.preventDefault();
+  //   // console.log( 'submit', this.state.email );
+  //   this.props.onSubmit( this.state.email );
+  // }
+
+  _handleSubmit(f) {
+    f.preventDefault(f);
+    console.log(this.state);
+    this.saveUser();
+  }
+
+  saveUser() {
+    axios.post( `${SERVER_PREFIX}users`, {
+      user: {
+        email: this.state.email,
+        password: this.state.password,
+        password_confirmation: this.state.password_confirmation
+      }
+    }).then(function (result) {
+      console.log( result );
+    })
+  }
+
+  render() {
+    return (
+      <form onSubmit={ this._handleSubmit }>
+        Please Sign Up Here:
+        <br />
+        <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+        <br />
+        <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+        <br />
+        <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
+        <button type='submit' method='post'>SignUp</button>
+      </form>
+    );
+  }
 }
+
 
 function AboutUs (props) {
   return (
