@@ -86,7 +86,6 @@ function UserForm (props) {
 }
 
 
-// turn the function into a class
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -144,12 +143,17 @@ class SignIn extends Component {
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: 'anna@ga.co', password: 'chicken', password_confirmation: 'chicken' };
+    this.state = { name: 'Anna', email: 'anna@ga.co', password: 'chicken', password_confirmation: 'chicken' };
     this._handleSubmit = this._handleSubmit.bind(this);
 
+    this._handleNameChange = this._handleNameChange.bind(this);
     this._handleChangeEmail = this._handleChangeEmail.bind(this);
     this._handleChangePassword = this._handleChangePassword.bind(this);
     this._handleConfirmChange = this._handleConfirmChange.bind(this);
+  }
+
+  _handleNameChange(n) {
+    this.setState( { name: n.target.value } );
   }
 
   _handleConfirmChange(c) {
@@ -174,15 +178,13 @@ class SignUp extends Component {
   saveUser() {
     axios.post( `${SERVER_PREFIX}users`, {
       user: {
+        name: this.state.name,
         email: this.state.email,
         password: this.state.password,
         password_confirmation: this.state.password_confirmation
       }
     }).then(function (result) {
       console.log( result );
-      // Once a user SignUp, send the data to the back-end
-      // save the user
-      // Go to the user's home page
     })
   }
 
@@ -192,7 +194,8 @@ class SignUp extends Component {
         <form onSubmit={ this._handleSubmit }>
           <h3>Please Sign Up Here:</h3>
           <br />
-
+          Name: <input type='text' placeholder='Type your name here' onInput={ this._handleNameChange } value={ this.state.name } />
+          <br />
           Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
           <br />
           Password: <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
@@ -333,7 +336,6 @@ export class MoodApp extends Component {
   componentDidMount(){
     this.getUsers();
     this.getMoods();
-
   }
 
   render() {
