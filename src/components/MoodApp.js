@@ -116,7 +116,7 @@ class SignIn extends Component {
     axios.post( `${SERVER_PREFIX}login`, {
         email: this.state.email,
         password: this.state.password,
-    }).then(function (result) {
+    }, {withCredentials: true}).then(function (result) {
       console.log( result );
       // Once find the user information
       // SignIn to user homepage
