@@ -75,6 +75,7 @@ function Footer (props) {
   )
 }
 
+// move UserForm into SignIn & SignUp
 function UserForm (props) {
   return (
     <div className='signin'>
@@ -84,13 +85,22 @@ function UserForm (props) {
   );
 }
 
-function SignIn (props) {
-  return (
-    <div className='signin'>
-      <UserForm />
-      <button type='submit'>SignIn</button>
-    </div>
-  );
+
+// turn the function into a class
+class SignIn extends Component {
+
+  render() {
+    return (
+      <form className='signin'>
+        <h3>Please Sign In Here:</h3>
+        <input type='email' placeholder='Type your email here' autoFocus/>
+        <br />
+        <input type='password' placeholder='Type your password here' />
+        <br />
+        <button type='submit' method='post'>Sign In</button>
+      </form>
+    );
+  }
 }
 
 
@@ -139,10 +149,10 @@ class SignUp extends Component {
   render() {
     return (
       <form onSubmit={ this._handleSubmit }>
-        Please Sign Up Here:
+        <h3>Please Sign Up Here:</h3>
         <br />
 
-        Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } />
+        Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
         <br />
         Password: <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
         <br />
