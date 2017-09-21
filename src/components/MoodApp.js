@@ -9,7 +9,7 @@ import Diary from './Diary';
 import DropDown from './DropDown'
 
 
-const SERVER_PREFIX = 'https://inner-emoji.herokuapp.com/'
+const SERVER_PREFIX = 'http://localhost:2000/'
 
 class User extends Component {
   render() {
@@ -306,9 +306,7 @@ export class MoodApp extends Component {
   }
 
   getWords() {
-    axios.get(SERVER_PREFIX + 'words', {
-      withCredentials: true
-    }).then((results) => {
+    axios.get(SERVER_PREFIX + 'words').then((results) => {
       this.setState({
         words: results.data,
       })
