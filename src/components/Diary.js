@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment';
+import sentiment from 'sentiment';
 import './Diary.css';
 
 // ----------- Adds to the new local host port ------------------ //
@@ -135,6 +135,12 @@ export default class Diary extends Component {
   }
 
 // ------------------------------- //
+
+
+
+// ------------------------------- //
+
+
   render() {
     return (
       <div className="diary">
