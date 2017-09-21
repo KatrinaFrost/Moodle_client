@@ -4,7 +4,7 @@ import sentiment from 'sentiment';
 import './Diary.css';
 
 // ----------- Adds to the new local host port ------------------ //
-const SERVER_PREFIX = 'http://localhost:2000/'
+const SERVER_PREFIX = 'https://inner-emoji.herokuapp.com/'
 
 // ------------------------------- //
 
@@ -136,7 +136,7 @@ export default class Diary extends Component {
 
 // ------------------------------- //
 
-
+// WANT TO ADD IN SENTIMENT API //
 
 // ------------------------------- //
 

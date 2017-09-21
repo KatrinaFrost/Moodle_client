@@ -8,6 +8,7 @@ import {TagCanvasComponent} from './TagCanvasComponent'
 import Diary from './Diary';
 import DropDown from './DropDown'
 
+
 const SERVER_PREFIX = 'https://inner-emoji.herokuapp.com/'
 
 class User extends Component {
@@ -115,7 +116,7 @@ class SignIn extends Component {
     return (
       <div className='signin'>
         <form onSubmit={ this._handleSubmit }>
-          <h3>Please Sign In Here:</h3>
+          <h3>Login</h3>
           <input type='email' placeholder='Type your email here' onChange={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
           <br />
           <input type='password' placeholder='Type your password here' onChange={ this._handleChangePassword } value={ this.state.password } />
@@ -177,6 +178,12 @@ class SignUp extends Component {
 
   render() {
     return (
+
+      <div className='whySignup'>
+      <h1 className="whySignupH1">Inner Emoji</h1>
+      <h2>The safest place for your thoughts keep a private and free online diary</h2>
+      <h3>Keep your diary securely on the Internet – to provide a convenient user experience your personal online diary. Inner emoji offers you a variety of features… and it’s free!</h3>
+
       <div className='signup'>
         <form onSubmit={ this._handleSubmit }>
           <h3>Please Sign Up Here:</h3>
@@ -192,6 +199,7 @@ class SignUp extends Component {
           <button type='submit' method='post'>Sign Up</button>
         </form>
       </div>
+      </div>
     );
   }
 }
@@ -199,8 +207,9 @@ class SignUp extends Component {
 function AboutUs (props) {
   return (
     <div className='aboutus'>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>
+      </p>
+      <p></p>
     </div>
   );
 }
