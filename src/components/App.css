@@ -59,6 +59,10 @@ body {
   color: white;
 }
 
+div.navbar li:hover {
+  color: green;
+}
+
 .footer {
   display: flex;
   justify-content: center;
