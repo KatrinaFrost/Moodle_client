@@ -6,8 +6,7 @@ import {WorldMap} from './WorldMap'
 import {HeatMap} from './HeatMap'
 import {TagCanvasComponent} from './TagCanvasComponent'
 import Diary from './Diary';
-import DropDown from './DropDown'
-
+import DropDown from './DropDown';
 
 const SERVER_PREFIX = 'http://localhost:2000/'
 
@@ -52,7 +51,7 @@ function MoodEntryForm (props) {
     <div className='mood_entry_form'>
       <h2 className='prompt_user'>Hey <User name={props.name}/>! How is your mood today?</h2>
       <div className='explain_user'>
-        <p>Record your daily mood by <strong>click</strong>ing on one of the emojis.</p>
+        <p><i className="fa fa-user-circle-o" aria-hidden="true"></i> Record your daily mood by <strong>click</strong>ing on one of the emojis.</p>
         <p>You can change the record as many times as you like <strong>on the same day</strong>.</p>
       </div>
       <div className='moods_wrapper'>
