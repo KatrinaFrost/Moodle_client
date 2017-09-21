@@ -13,7 +13,7 @@ class User extends Component {
   render() {
     return (
       <div className='user'>
-        {this.props.name}
+        {this.props.user ? this.props.user.name : '' }
       </div>
     );
   }
@@ -115,9 +115,9 @@ class SignIn extends Component {
       <div className='signin'>
         <form onSubmit={ this._handleSubmit }>
           <h3>Please Sign In Here:</h3>
-          <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+          <input type='email' placeholder='Type your email here' onChange={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
           <br />
-          <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+          <input type='password' placeholder='Type your password here' onChange={ this._handleChangePassword } value={ this.state.password } />
           <br />
           <button type='submit' method='post'>Sign In</button>
         </form>
@@ -234,7 +234,7 @@ function Nav (props) {
           <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
           <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
           <li onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
-          <li onClick={() => {props.changeRoute('home')}}><DropDown changeRoute={props.changeRoute} /></li>
+          <li><DropDown changeRoute={props.changeRoute} /></li>
           <li><User name={props.user.email}/></li>
           <li onClick={props.logout}>LogOut</li>
         </ul> }
@@ -291,6 +291,7 @@ export class MoodApp extends Component {
         user: null,
         route: 'aboutus'
       });
+
     });
   }
 
@@ -320,7 +321,6 @@ export class MoodApp extends Component {
     });
 
     axios.post(SERVER_PREFIX + 'mood_entry.json', { mood_entry: {
-      user_id: 1,
       when: new Date(),
       mood: mood
     }},{

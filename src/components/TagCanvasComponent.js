@@ -27,9 +27,9 @@ export class TagCanvasComponent extends Component {
         </div>
         <div id="tags">
         <ul>
-          {this.props.words.map((word) => {
+          {this.props.words.map((word, i) => {
             return (
-              <li><a href="moods">{word}</a></li>
+              <li><a href="moods" key={i}>{word}</a></li>
             );
           })}
         </ul>
