@@ -136,7 +136,7 @@ export default class Diary extends Component {
 
 // ------------------------------- //
 
-
+// WANT TO ADD IN SENTIMENT API //
 
 // ------------------------------- //
 

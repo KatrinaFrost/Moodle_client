@@ -196,3 +196,14 @@ form:hover {
   background-color: rgba(105,178,107,0.66);
 
 }
+
+/* Sign up style */
+
+.whySignup {
+  font-family: sans-serif;
+}
+
+.whySignupH1 {
+  color: #16a085;
+  font-size: 40px;
+}
