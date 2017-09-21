@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {BarChart} from './TestD3'
+import {BarChartReady} from './BarChart'
 import {WorldMap} from './WorldMap'
 import {HeatMap} from './HeatMap'
 import {TagCanvasComponent} from './TagCanvasComponent'
@@ -13,7 +14,7 @@ class User extends Component {
   render() {
     return (
       <div className='user'>
-        {this.props.user ? this.props.user.name : '' }
+        {this.props.name ? this.props.name : '' }
       </div>
     );
   }
@@ -242,7 +243,7 @@ function Nav (props) {
           <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
           <li onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
           <li><DropDown changeRoute={props.changeRoute} /></li>
-          <li><User name={props.user.email}/></li>
+          <li><User name={props.email}/></li>
           <li onClick={props.logout}>LogOut</li>
         </ul> }
       </div>
@@ -378,7 +379,7 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'analytics') {
-      content = (<BarChart data={[4,3,3,2,4,1]} labels={['sad', 'happy']} size={[500,500]}/>);
+      content = (<BarChart data={[0,1,2,3,4]} labels={['a', 'b', 'c', 'd', 'e']} size={[500,500]}/>);
     }
 
     if (routeName === 'globalmood') {
