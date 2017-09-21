@@ -21,15 +21,15 @@ export class TagCanvasComponent extends Component {
     return (
       <div className='wrapper'>
         <div id="myCanvasContainer">
-          <canvas width="500" height="500" id="myCanvas">
+          <canvas width="700" height="700" id="myCanvas">
             <p>Anything in here will be replaced on browsers that support the canvas element</p>
             </canvas>
         </div>
         <div id="tags">
         <ul>
-          {this.props.words.map((word, i) => {
+          {this.props.words.map((word) => {
             return (
-              <li><a href="moods" key={i}>{word}</a></li>
+              <li key={word}><a href="moods">{word}</a></li>
             );
           })}
         </ul>
