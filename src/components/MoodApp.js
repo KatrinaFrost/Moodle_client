@@ -306,7 +306,9 @@ export class MoodApp extends Component {
   }
 
   getWords() {
-    axios.get(SERVER_PREFIX + 'words').then((results) => {
+    axios.get(SERVER_PREFIX + 'words', {
+      withCredentials: true
+    }).then((results) => {
       this.setState({
         words: results.data,
       })
