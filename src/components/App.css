@@ -9,6 +9,37 @@ body {
   flex-direction: column;
 }
 
+a, button, [type=button] {
+  cursor: pointer;
+}
+
+.navbar .logoFont {
+  font-family: 'Pacifico', cursive;
+  font-size: 40px;
+  padding: 0;
+}
+
+.secondaryFont {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+h2.intro {
+  text-align: center;
+  font-size: 40px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+
+h3.intro {
+  font-weight: 500;
+  width: 690px;
+  margin-bottom: 30px;
+}
+
+p.intro {
+  font-size: 20px;
+}
+
 #root {
   display: flex;
   flex-grow: 1;
@@ -49,6 +80,10 @@ body {
   padding: 20px 0 40px 0;
 }
 
+.nav_wrapper {
+  width: 100%;
+}
+
 .navbar {
   display: flex;
   flex-direction: column;
@@ -60,7 +95,8 @@ body {
 }
 
 div.navbar li:hover {
-  color: green;
+  color: #38524d;
+  transition: all .5s;
 }
 
 .footer {
@@ -149,11 +185,32 @@ li {
   list-style: none;
 }
 
-input, button {
-  height: 40px;
+input {
+  cursor: pointer;
+  border: 5px solid #16a085;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin: 20px 0;
   text-align: center;
-  margin: 5px;
+  font-size: 20px;
+  width: 80%;
+}
+
+button {
+  padding: 10px;
+  width: 5%;
   min-width: 200px;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-family: sans-serif;
+  color: white;
+  background-color: #16a085;
+  border-radius: 5px;
+  box-shadow: none;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
 }
 
 img {
@@ -175,7 +232,7 @@ img {
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-image: url('/emojis/beach.jpg');
+  background-image: url('http://static5.thisisinsider.com/image/574f22b9dd08955c2e8b4b36-1017/emoji%20keyboard.png');
   background-size: cover;
 
 }
@@ -201,9 +258,33 @@ form:hover {
 
 .whySignup {
   font-family: sans-serif;
+  margin-bottom: 120px;
 }
 
 .whySignupH1 {
   color: #16a085;
   font-size: 40px;
+}
+
+/*signin*/
+
+.loginButton {
+    padding: 10px;
+    width: 10%;
+    min-width: 200px;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: sans-serif;
+    color: white;
+    background-color: #16a085;
+    border-radius: 5px;
+    box-shadow: none;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+
+.loginButton:hover {
+  background-position: right center;
 }

@@ -33,7 +33,9 @@ class DiaryEntry extends Component {
   render() {
     return (
       <div className="diary-entry">
-        <h1 className="diaryH1">Amandas Diary</h1>
+        <h1 className="diaryH1 secondaryFont">Dear Diary</h1>
+        <p className="DiaryP"> Tell us about your day... You can save as many entries per day as you like!</p>
+        <p className="DiaryEmoji">😊 😔 😁 😡</p>
         <textArea className="diaryTextArea"
           value={this.state.entry}
           onChange={this.onInputChange} />
