@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {BarChart} from './TestD3'
-import {BarChartReady} from './BarChart'
-import {WorldMap} from './WorldMap'
 import {HeatMap} from './HeatMap'
 import {TagCanvasComponent} from './TagCanvasComponent'
 import Diary from './Diary';
+<<<<<<< HEAD
 import DropDown from './DropDown';
+=======
+import DropDown from './DropDown'
+import BarChart from 'react-bar-chart';
+
+>>>>>>> bcd0d1444fbf3b5860a20c70a7aa209a501963b8
 
 const SERVER_PREFIX = 'http://localhost:2000/'
 
@@ -21,29 +24,8 @@ class User extends Component {
 }
 
 function MoodEntryForm (props) {
-  const moods = [{
-    id: 0,
-    name: 'Sad',
-    img: './emojis/sad.png'
-  },{
-    id: 1,
-    name: 'Calm',
-    img: './emojis/calm.png'
-  },{
-    id: 2,
-    name: 'Energetic',
-    img: './emojis/energetic.png'
-  },{
-    id: 3,
-    name: 'Relaxed',
-    img: './emojis/relaxed.png'
-  },{
-    id: 4,
-    name: 'Happy',
-    img: './emojis/happy.png'
-  }];
 
-  let moodName = props.mood === null ? 'Nothing is selected.' : moods.filter((mood) => {
+  let moodName = props.mood === null ? 'Nothing is selected.' : props.moods.filter((mood) => {
     return mood.id === props.mood;
   })[0].name;
 
@@ -55,7 +37,7 @@ function MoodEntryForm (props) {
         <p>You can change the record as many times as you like <strong>on the same day</strong>.</p>
       </div>
       <div className='moods_wrapper'>
-        { moods.map((mood) => {
+        { props.moods.map((mood) => {
           return (
             <div key={mood.id} onClick={()=>{props.setMood(mood.id)}} className={props.mood === mood.id ? 'moods selected' : 'moods'}>
               <img alt='moods' src={mood.img} key={mood.id}/>
@@ -203,16 +185,6 @@ class SignUp extends Component {
   }
 }
 
-class GlobalMood extends Component {
-  render() {
-    return (
-      <div className='globalmood'>
-        <p>Mood Globe Coming soon... but it did not unfortunately. Although, we have D3 global map.</p>
-      </div>
-    );
-  }
-}
-
 function Nav (props) {
   return (
     <div className='nav_wrapper'>
@@ -228,10 +200,10 @@ function Nav (props) {
         { props.user &&
         <ul>
           <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
-          <li onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
-          <li><DropDown changeRoute={props.changeRoute} /></li>
+          <li><DropDown changeRoute={props.changeRoute} user={props.user.email}/></li>
           <li><User name={props.email}/></li>
           <li onClick={props.logout}>LogOut</li>
+          <li onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
         </ul> }
       </div>
     </div>
@@ -245,6 +217,27 @@ export class MoodApp extends Component {
       route: window.location.hash ? window.location.hash.slice(1) : 'overview',
       user: null,
       users: [],
+      moods: [{
+        id: 0,
+        name: 'Sad',
+        img: './emojis/sad.png'
+      },{
+        id: 1,
+        name: 'Calm',
+        img: './emojis/calm.png'
+      },{
+        id: 2,
+        name: 'Energetic',
+        img: './emojis/energetic.png'
+      },{
+        id: 3,
+        name: 'Relaxed',
+        img: './emojis/relaxed.png'
+      },{
+        id: 4,
+        name: 'Happy',
+        img: './emojis/happy.png'
+      }],
       moodEntries: [],
       mood: null,
       words: [],
@@ -254,7 +247,8 @@ export class MoodApp extends Component {
     this.setMood = this.setMood.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.getWords = this.getWords.bind(this);
-    this.getMoods = this.getMoods.bind(this);
+    this.getMoodTotals = this.getMoodTotals.bind(this);
+    this.getMoodEntries = this.getMoodEntries.bind(this);
     this.setUser = this.setUser.bind(this);
     this.logout = this.logout.bind(this);
   }
@@ -275,7 +269,7 @@ export class MoodApp extends Component {
       route: 'home' || 'diary'
     });
     this.getUsers();
-    this.getMoods();
+    this.getMoodEntries();
   }
 
   logout() {
@@ -298,7 +292,22 @@ export class MoodApp extends Component {
     })
   }
 
-  getMoods() {
+  getMoodTotals() {
+    axios.get(SERVER_PREFIX + 'moods').then((results) => {
+      this.setState({
+        moodTotals: Object.keys(results.data).map((moodId) => {
+          return {
+            text: this.state.moods.filter((mood) => {
+              return mood.id.toString() === moodId;
+            })[0].name,
+            value: results.data[moodId]
+          }
+        })
+      })
+    })
+  }
+
+  getMoodEntries() {
     axios.get(SERVER_PREFIX + 'mood_entry.json',{
       withCredentials: true
     }).then((results) => {
@@ -321,7 +330,7 @@ export class MoodApp extends Component {
     }},{
       withCredentials: true
     }).then(() => {
-      this.getMoods();
+      this.getMoodEntries();
     });
   }
 
@@ -332,6 +341,7 @@ export class MoodApp extends Component {
 
   componentDidMount() {
     this.getWords();
+    this.getMoodTotals();
   }
 
   render() {
@@ -339,15 +349,18 @@ export class MoodApp extends Component {
     let routeName = this.state.route;
 
     if (routeName === 'home') {
-      content = <div className='user_page'><MoodEntryForm name={this.state.user ? this.state.user.name : 'Guest'} setMood={this.setMood} mood={this.state.mood} />
+      content = <div className='user_page'><MoodEntryForm name={this.state.user ? this.state.user.name : 'Guest'} setMood={this.setMood} moods={this.state.moods} mood={this.state.mood} />
         <HeatMap moodEntries={this.state.moodEntries}/>
       </div>;
     }
 
     if (routeName === 'overview') {
-      content = <div className='wrapper'><User name={this.state.user}/><TagCanvasComponent words={this.state.words}/>
-    </div>;
+      content = <div className='wrapper'>
+        <p>See how the world is feeling in this Mood Globe. Simply hover over in the globe.</p>
+        <TagCanvasComponent words={this.state.words}/>
+      </div>;
     }
+
 
     if (routeName === 'diary') {
       content = <Diary />;
@@ -362,7 +375,14 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'globalmood') {
-      content = <div className='wrapper'><GlobalMood /><WorldMap /></div>
+      content = <div className='wrapper'>
+      <BarChart data={this.state.moodTotals || []}
+        margin={{top: 20, right: 20, bottom: 30, left: 40}}
+        width={800}
+        height={500}
+        ylabel='Mood'
+      />
+      </div>
     }
 
     return(

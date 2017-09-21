@@ -17,7 +17,7 @@ export default class DropDown extends Component {
   };
 
   handleClickBeyond = (e) => {
-    if (e.target != this.refs.profilePic) {
+    if (e.target !== this.refs.profilePic) {
       this.setState({showDropDown: false})
     }
   };
@@ -34,8 +34,10 @@ export default class DropDown extends Component {
     return(
       <div className="dropdown" ref="dropdown">
       <ul>
-        <li onClick={() => {this.props.changeRoute('aboutus')}}>Overview</li>
+        <li onClick={() => {this.props.changeRoute('diary')}}>Diary</li>
         <li onClick={() => {this.props.changeRoute('overview')}}>Global Mood</li>
+        <li onClick={() => {this.props.changeRoute('globalmood')}}>Analytics</li>
+        <li onClick={() => {this.props.changeRoute('home')}}>Record your Mood</li>
       </ul>
 
       </div>
@@ -43,8 +45,7 @@ export default class DropDown extends Component {
   }
   render() {
     return(
-      <div className="dropdown">
-        <img src="/emojis/happy.png" onClick={this.handleClick} ref="profilePic"/>
+      <div className='dropdown' onClick={this.handleClick} ref="profilePic"> {this.props.user}
         {
           this.state.showDropDown ? this.dropDownTag() : null
         }
