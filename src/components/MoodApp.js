@@ -40,7 +40,7 @@ function MoodEntryForm (props) {
     id: 4,
     name: 'Happy',
     img: './emojis/happy.png'
-  },];
+  }];
 
   let moodName = props.mood === null ? 'Nothing is selected.' : moods.filter((mood) => {
     return mood.id === props.mood;
@@ -112,14 +112,16 @@ class SignIn extends Component {
 
   render() {
     return (
-      <form className='signin' onSubmit={ this._handleSubmit }>
-        <h3>Please Sign In Here:</h3>
-        <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
-        <br />
-        <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
-        <br />
-        <button type='submit' method='post'>Sign In</button>
-      </form>
+      <div className='signin'>
+        <form onSubmit={ this._handleSubmit }>
+          <h3>Please Sign In Here:</h3>
+          <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+          <br />
+          <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+          <br />
+          <button type='submit' method='post'>Sign In</button>
+        </form>
+      </div>
     );
   }
 }
@@ -369,7 +371,7 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'analytics') {
-      content = (<BarChart data={[4,3,3,2,4,1]} size={[500,500]}/>);
+      content = (<BarChart data={[4,3,3,2,4,1]} labels={['sad', 'happy']} size={[500,500]}/>);
     }
 
     if (routeName === 'globalmood') {
