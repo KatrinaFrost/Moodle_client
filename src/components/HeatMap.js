@@ -12,7 +12,7 @@ function HeatMapCalendar (props) {
           // .isSame is moment.js function that compares between two days or dates or months
           return calendarDay.isSame(moodEntry.when, 'day');
         });
-        return entriesToday.length ? 'mood-' + entriesToday[0].mood : '';
+        return entriesToday.length ? 'mood-' + entriesToday[entriesToday.length - 1].mood : '';
       }
     } />
   );
