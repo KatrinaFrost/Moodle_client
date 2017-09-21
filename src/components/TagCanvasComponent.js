@@ -5,8 +5,8 @@ import React, {Component} from 'react';
 export class TagCanvasComponent extends Component {
   componentDidMount() {
     TagCanvas.Start('myCanvas','tags', {
-      textColour: '#ff0000',
-      outlineColour: '#ff00ff',
+      textColour: '#16a085',
+      outlineColour: '#69b26b',
       reverse: true,
       depth: 0.8,
       maxSpeed: 0.05

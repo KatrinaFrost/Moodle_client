@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import sentiment from 'sentiment';
+// import sentiment from 'sentiment'; - sentiment api not working yet
 import './Diary.css';
 
 // ----------- Adds to the new local host port ------------------ //
+
 const SERVER_PREFIX = 'http://localhost:2000/'
 
-// ------------------------------- //
+// -------------- Creates blank diary entry ----------------- //
 
 class DiaryEntry extends Component {
   constructor (props) {
@@ -15,14 +16,13 @@ class DiaryEntry extends Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-// ------------------------------- //
+// -------------  ------------------ //
 
   onInputChange(e) {
     this.setState({ entry: e.target.value })
-    // this.props.onInputChange(this.state.entry);
   }
 
-// ------------------------------- //
+// ----------------------------- //
 
   onSubmit(){
     this.props.addEntry(this.state.entry);
@@ -33,12 +33,17 @@ class DiaryEntry extends Component {
   render() {
     return (
       <div className="diary-entry">
+
         <h1 className="diaryH1 secondaryFont">Dear Diary</h1>
+
         <p className="DiaryP"> Tell us about your day... You can save as many entries per day as you like!</p>
-        <p className="DiaryEmoji">😊 😔 😁 😡</p>
+        <p className="DiaryEmoji"><span>😊 😔 😁 😡</span></p>
+
         <textArea className="diaryTextArea"
-          value={this.state.entry}
+
+          value={this.state.entry} 
           onChange={this.onInputChange} />
+
           <button className="diaryButton"
             onClick={event => this.onSubmit()}
             onChange={event => this.onInputChange(event.target.value)}
@@ -51,12 +56,13 @@ class DiaryEntry extends Component {
 }
 
 // ------------------------------- //
-
 const EntryList = (props) => {
   console.log(props);
+
   const entries = props.entries.map((entry, i) => {
-    var [text, date] = entry;
+    let [text, date] = entry;
     return (
+
       <div className="entry" key={i}>
         <h4 className="date"> {date.split('-').reverse().join('-')}</h4>
         <h4 className="text">{text}</h4>
@@ -124,8 +130,6 @@ export default class Diary extends Component {
       }
       this.setState({
         entries: entryResults
-        // current_user_id: results.data[2].id
-        // console.log(this.state);
       });
       console.log(this.state);
     });
@@ -141,8 +145,6 @@ export default class Diary extends Component {
 // WANT TO ADD IN SENTIMENT API //
 
 // ------------------------------- //
-
-
   render() {
     return (
       <div className="diary">
