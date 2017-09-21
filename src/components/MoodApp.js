@@ -204,16 +204,6 @@ class SignUp extends Component {
   }
 }
 
-function AboutUs (props) {
-  return (
-    <div className='aboutus'>
-      <p>
-      </p>
-      <p></p>
-    </div>
-  );
-}
-
 class GlobalMood extends Component {
   render() {
     return (
@@ -232,17 +222,13 @@ function Nav (props) {
         <ul>
           <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
           <li onClick={() => {props.changeRoute('globalmood')}}>Global Mood</li>
-          <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
-          <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
-          <li onClick={() => {props.changeRoute('overview')}}>Overview</li>
           <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
           <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
+          <li onClick={() => {props.changeRoute('signin')}}>Create a Diary</li>
         </ul> }
         { props.user &&
         <ul>
           <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
-          <li onClick={() => {props.changeRoute('analytics')}}>Admin/Analytics</li>
-          <li onClick={() => {props.changeRoute('aboutus')}}>About Us</li>
           <li onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
           <li><DropDown changeRoute={props.changeRoute} /></li>
           <li><User name={props.email}/></li>
@@ -287,7 +273,7 @@ export class MoodApp extends Component {
   setUser(user) {
     this.setState({
       user: user,
-      route: 'home'
+      route: 'home' || 'diary'
     });
     this.getUsers();
     this.getMoods();
@@ -299,7 +285,7 @@ export class MoodApp extends Component {
     }).then((results) => {
       this.setState({
         user: null,
-        route: 'aboutus'
+        route: 'overview'
       });
 
     });
@@ -374,14 +360,6 @@ export class MoodApp extends Component {
 
     if (routeName === 'signup') {
       content = <SignUp setUser={this.setUser}/>;
-    }
-
-    if (routeName === 'aboutus') {
-      content = (<AboutUs />);
-    }
-
-    if (routeName === 'analytics') {
-      content = (<BarChart data={[0,1,2,3,4]} labels={['a', 'b', 'c', 'd', 'e']} size={[500,500]}/>);
     }
 
     if (routeName === 'globalmood') {
