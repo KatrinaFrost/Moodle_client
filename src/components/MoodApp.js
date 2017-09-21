@@ -206,7 +206,8 @@ class SignUp extends Component {
 function AboutUs (props) {
   return (
     <div className='aboutus'>
-      <p></p>
+      <p>
+      </p>
       <p></p>
     </div>
   );
