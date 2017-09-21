@@ -351,7 +351,7 @@ export class MoodApp extends Component {
     }
 
     if (routeName === 'overview') {
-      content = <div className='wrapper'><User name={this.state.user ? this.state.user.name : ''}/>
+      content = <div className='wrapper'>
         <p>See how the world is feeling in this Mood Globe. Simply hover over in the globe.</p>
         <TagCanvasComponent words={this.state.words}/>
       </div>;

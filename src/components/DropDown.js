@@ -37,6 +37,7 @@ export default class DropDown extends Component {
         <li onClick={() => {this.props.changeRoute('diary')}}>Diary</li>
         <li onClick={() => {this.props.changeRoute('overview')}}>Global Mood</li>
         <li onClick={() => {this.props.changeRoute('globalmood')}}>Analytics</li>
+        <li onClick={() => {this.props.changeRoute('home')}}>Record your Mood</li>
       </ul>
 
       </div>
