@@ -112,14 +112,16 @@ class SignIn extends Component {
 
   render() {
     return (
-      <form className='signin' onSubmit={ this._handleSubmit }>
-        <h3>Please Sign In Here:</h3>
-        <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
-        <br />
-        <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
-        <br />
-        <button type='submit' method='post'>Sign In</button>
-      </form>
+      <div className='signin'>
+        <form onSubmit={ this._handleSubmit }>
+          <h3>Please Sign In Here:</h3>
+          <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+          <br />
+          <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+          <br />
+          <button type='submit' method='post'>Sign In</button>
+        </form>
+      </div>
     );
   }
 }
