@@ -60,7 +60,6 @@ class SignIn extends Component {
     super(props);
     this.state = { email: '', password: '' };
     this._handleSubmit = this._handleSubmit.bind(this);
-
     this._handleChangeEmail = this._handleChangeEmail.bind(this);
     this._handleChangePassword = this._handleChangePassword.bind(this);
   }
@@ -211,7 +210,8 @@ function Nav (props) {
         { props.user &&
         <ul>
 
-          <li className='mood_logo logoFont' onClick={() => {props.changeRoute('overview')}}>Inner Emoji ...</li>
+          <li className='mood_logo logoFont' onClick={() => {props.changeRoute('overview')}}>
+          Inner Emoji ...</li>
 
           <li><DropDown changeRoute={props.changeRoute} user={props.user.email}/></li>
 
@@ -219,7 +219,8 @@ function Nav (props) {
 
           <li type="button" onClick={props.logout}>LogOut</li>
 
-          <li type="button" onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
+          <li type="button" onClick={() => {props.changeRoute('diary')}}>
+          Create a Diary</li>
 
         </ul> }
       </div>
