@@ -6,7 +6,10 @@ import Diary from './Diary';
 import DropDown from './DropDown';
 import BarChart from 'react-bar-chart';
 
+
+
 const SERVER_PREFIX = 'http://localhost:2000/'
+
 
 class User extends Component {
   render() {
