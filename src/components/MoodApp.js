@@ -3,20 +3,13 @@ import axios from 'axios';
 import {HeatMap} from './HeatMap'
 import {TagCanvasComponent} from './TagCanvasComponent'
 import Diary from './Diary';
-<<<<<<< HEAD
 import DropDown from './DropDown';
-=======
-import DropDown from './DropDown'
 import BarChart from 'react-bar-chart';
 
-<<<<<<< HEAD
-const SERVER_PREFIX = 'http://localhost:2000/'
-// const SERVER_PREFIX = 'https://inner-emoji.herokuapp.com/'
-=======
->>>>>>> bcd0d1444fbf3b5860a20c70a7aa209a501963b8
+
 
 const SERVER_PREFIX = 'http://localhost:2000/'
->>>>>>> 666c6000523af9e2708b7dba4c7cdebb06de9a6c
+
 
 class User extends Component {
   render() {
@@ -36,10 +29,11 @@ function MoodEntryForm (props) {
 
   return(
     <div className='mood_entry_form'>
-      <h2 className='prompt_user'>Hey <User name={props.name}/>! How is your mood today?</h2>
+      <h2
+      className='prompt_user'>Hey <User name={props.name}/>! How are you feeling today?</h2>
       <div className='explain_user'>
-        <p><i className="fa fa-user-circle-o" aria-hidden="true"></i> Record your daily mood by <strong>click</strong>ing on one of the emojis.</p>
-        <p>You can change the record as many times as you like <strong>on the same day</strong>.</p>
+        <p> Log your daily mood by <strong>clicking</strong> on one of the emojis.</p>
+        <p>You can change the record as many times as you like on the same day.</p>
       </div>
       <div className='moods_wrapper'>
         { props.moods.map((mood) => {
@@ -67,7 +61,7 @@ function Footer (props) {
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: 'amanda@ga.co', password: 'chicken' };
+    this.state = { email: '', password: '' };
     this._handleSubmit = this._handleSubmit.bind(this);
 
     this._handleChangeEmail = this._handleChangeEmail.bind(this);
@@ -103,13 +97,16 @@ class SignIn extends Component {
       <div className='signin'>
         <form onSubmit={ this._handleSubmit }>
           <h3>Login</h3>
-          <input type='email' placeholder='Type your email here' onChange={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
+          <input type='email' placeholder='Email' onChange={ this._handleChangeEmail } value={ this.state.email } autoFocus/>
           <br />
-          <input type='password' placeholder='Type your password here' onChange={ this._handleChangePassword } value={ this.state.password } />
+          <input type='password' placeholder='Password' onChange={ this._handleChangePassword } value={ this.state.password } />
           <br />
-          <button type='submit' method='post'>Sign In</button>
+          <div className='loginButton'>
+          <button type='submit' method='post'>Log In</button>
+          </div>
         </form>
       </div>
+
     );
   }
 }
@@ -117,7 +114,7 @@ class SignIn extends Component {
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: 'Anna', email: 'anna@ga.co', password: 'chicken', password_confirmation: 'chicken' };
+    this.state = { name: '', email: '', password: '', password_confirmation: '' };
     this._handleSubmit = this._handleSubmit.bind(this);
 
     this._handleNameChange = this._handleNameChange.bind(this);
@@ -166,21 +163,20 @@ class SignUp extends Component {
     return (
 
       <div className='whySignup'>
-      <h1 className="whySignupH1">Inner Emoji</h1>
-      <h2>The safest place for your thoughts keep a private and free online diary</h2>
-      <h3>Keep your diary securely on the Internet – to provide a convenient user experience your personal online diary. Inner emoji offers you a variety of features… and it’s free!</h3>
+      <h2 className="intro secondaryFont">Capture your mood & thoughts.</h2>
+      <h3 className="intro">Keep track of your mood by selecting an Emoji, and enter a diary log for the day. Inner emoji offers you a variety of features… and it’s free!</h3>
 
       <div className='signup'>
         <form onSubmit={ this._handleSubmit }>
-          <h3>Please Sign Up Here:</h3>
+          <h3>Please Sign Up Here</h3>
           <br />
-          Name: <input type='text' placeholder='Type your name here' onInput={ this._handleNameChange } value={ this.state.name } autoFocus />
+          <i class="fa fa-user-circle-o signup-icon" aria-hidden="true"></i><input type='text' placeholder='Name' onInput={ this._handleNameChange } value={ this.state.name } autoFocus />
           <br />
-          Email Address: <input type='email' placeholder='Type your email here' onInput={ this._handleChangeEmail } value={ this.state.email } />
+          <input type='email' placeholder='Email' onInput={ this._handleChangeEmail } value={ this.state.email } />
           <br />
-          Password: <input type='password' placeholder='Type your password here' onInput={ this._handleChangePassword } value={ this.state.password } />
+          <input type='password' placeholder='Password' onInput={ this._handleChangePassword } value={ this.state.password } />
           <br />
-          Confirm Password: <input type='password' placeholder='Confirm your password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
+          <input type='password' placeholder='Confirm Password' onInput={ this._handleConfirmChange } value={ this.state.password_confirmation } />
           <br />
           <button type='submit' method='post'>Sign Up</button>
         </form>
@@ -196,19 +192,38 @@ function Nav (props) {
       <div className='navbar'>
         { !props.user &&
         <ul>
-          <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
-          <li onClick={() => {props.changeRoute('globalmood')}}>Global Mood</li>
-          <li onClick={() => {props.changeRoute('signin')}}>SignIn</li>
-          <li onClick={() => {props.changeRoute('signup')}}>SignUp</li>
-          <li onClick={() => {props.changeRoute('signin')}}>Create a Diary</li>
+
+          <li className='mood_logo logoFont' type="button" onClick={() => {props.changeRoute('overview')}}>Inner Emoji ...</li>
+          <li type="button" onClick={() => {props.changeRoute('globalmood')}}>
+            <span><i className="fa fa-globe" aria-hidden="true"></i> World Mood</span>
+          </li>
+
+          <li type="button" onClick={() => {props.changeRoute('signin')}}>
+            <span><i className="fa fa-book" aria-hidden="true"></i> Create a Diary</span>
+          </li>
+
+          <li type="button" onClick={() => {props.changeRoute('signin')}}>
+            <span><i className="fa fa-sign-in" aria-hidden="true"></i> Sign In</span>
+          </li>
+
+          <li type="button" onClick={() => {props.changeRoute('signup')}}>
+            <span><i className="fa fa-pencil" aria-hidden="true"></i> Sign Up</span>
+          </li>
+
         </ul> }
         { props.user &&
         <ul>
-          <li className='mood_logo' onClick={() => {props.changeRoute('overview')}}>Inner Emoji</li>
+
+          <li className='mood_logo logoFont' onClick={() => {props.changeRoute('overview')}}>Inner Emoji ...</li>
+
           <li><DropDown changeRoute={props.changeRoute} user={props.user.email}/></li>
+
           <li><User name={props.email}/></li>
-          <li onClick={props.logout}>LogOut</li>
-          <li onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
+
+          <li type="button" onClick={props.logout}>LogOut</li>
+
+          <li type="button" onClick={() => {props.changeRoute('diary')}}>Create a Diary</li>
+
         </ul> }
       </div>
     </div>
@@ -262,6 +277,7 @@ export class MoodApp extends Component {
     axios.get(SERVER_PREFIX + 'users.json',{
       withCredentials: true
     }).then((results) => {
+
       this.setState({
         users: results.data
       });
@@ -273,6 +289,7 @@ export class MoodApp extends Component {
       user: user,
       route: 'home' || 'diary'
     });
+
     this.getUsers();
     this.getMoodEntries();
   }
@@ -281,11 +298,11 @@ export class MoodApp extends Component {
     axios.delete(SERVER_PREFIX + 'login',{
       withCredentials: true
     }).then((results) => {
+
       this.setState({
         user: null,
         route: 'overview'
       });
-
     });
   }
 
@@ -335,6 +352,7 @@ export class MoodApp extends Component {
     }},{
       withCredentials: true
     }).then(() => {
+
       this.getMoodEntries();
     });
   }
@@ -361,7 +379,9 @@ export class MoodApp extends Component {
 
     if (routeName === 'overview') {
       content = <div className='wrapper'>
-        <p>See how the world is feeling in this Mood Globe. Simply hover over in the globe.</p>
+
+        <p className="intro secondaryFont">See how the world is feeling. Simply hover over the globe to spin through the moods.</p>
+
         <TagCanvasComponent words={this.state.words}/>
       </div>;
     }

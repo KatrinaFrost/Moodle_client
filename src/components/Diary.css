@@ -1,52 +1,58 @@
+/* Dear Diary*/
 .diaryH1 {
   color: #16a085;
-  font-family: sans-serif;
+  font-size: 36px;
   width: 100%;
   border-bottom: 1px;
-
 }
 
+/* Tell us about you day ... */
+.DiaryP, .DiaryEmoji {
+  text-align: center;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+/* Diary background image */
 .diary {
   width: 100%;
   padding-top: 5px;
   min-width: 100%;
   margin-bottom: 60px;
+  background-color: #fff;
+  background-image:
+  linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+  linear-gradient(#eee .1em, transparent .1em);
+  background-size: 100% 1.2em;
 }
 
-.date {
-  background-color: green;
-  font-size: 30px;
-  font-family: sans-serif;
-}
-
-.entry {
+/* Text box */
+.diaryTextArea {
+  display: block;
+  margin: auto;
+  background: white;
   border: 1px solid #16a085;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   border-radius: 5px;
-  margin: 20px 0;
+  box-shadow: 0 0 5px 3px #grey;
+  color: #666;
+  outline: none;
+  height:100px;
+  width: 67%;
+  padding: 1%;
+  font-size: 24px;
+  min-width: 300px;
+  margin-bottom: 20px;
 }
 
-.entry .date {
-  text-align: left;
-  color: #16a085;
-  border-left: 5px solid #16a085;
-  background: none;
-  padding-left: 25px;
-  font-size: 18px;
-  font-family: monospace;
+.diaryTextArea:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  transition: all .6s;
 }
 
-.entry .text {
-  color: #16a085;
-  text-align: left;
-  margin-left: 20px;
-  font-size: 20px;
-  min-width: 200px;
-  padding-left: 10px;
-  font-size: 18px;
-  font-family: sans-serif;
-  padding-top: 10px;
-  min-width: 200px;
+.entryContainer {
+  margin: 0 auto;
+  width: 70%;
+  min-width: 300px;
 }
 
 /*Diary button */
@@ -71,29 +77,42 @@
   background-position: right center;
 }
 
-.diaryTextArea {
-  display: block;
-  margin: auto;
-  background: white;
+/* Saved Diary Entry */
+.entry {
   border: 1px solid #16a085;
-  border-radius: 5px;
-  box-shadow: 0 0 5px 3px #grey;
-  color: #666;
-  outline: none;
-  height:100px;
-  width: 67%;
-  padding: 1%;
-  font-size: 24px;
-  min-width: 300px;
-  margin-bottom: 20px;
-}
-
-.diaryTextArea:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin: 20px 0;
+  background: white;
 }
 
-.entryContainer {
-  margin: 0 auto;
-  width: 70%;
-  min-width: 300px;
+/* Saved Entry date */
+.entry .date {
+  text-align: left;
+  color: #16a085;
+  border-left: 5px solid #16a085;
+  background: none;
+  padding-left: 25px;
+  font-size: 18px;
+  font-family: monospace;
 }
+
+/* Entry text */
+.entry .text {
+  color: #16a085;
+  text-align: left;
+  margin-left: 20px;
+  font-size: 20px;
+  min-width: 200px;
+  padding-left: 10px;
+  font-size: 18px;
+  font-family: sans-serif;
+  padding-top: 10px;
+  min-width: 200px;
+}
+
+/*.date {
+  background-color: green;
+  font-size: 30px;
+  font-family: sans-serif;
+}*/
