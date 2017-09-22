@@ -8,7 +8,7 @@ import BarChart from 'react-bar-chart';
 
 
 
-const SERVER_PREFIX = 'http://localhost:2000/'
+const SERVER_PREFIX = 'https://inner-emoji.herokuapp.com/'
 
 
 class User extends Component {

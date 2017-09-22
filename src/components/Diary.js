@@ -5,8 +5,8 @@ import './Diary.css';
 
 // ----------- Adds to the new local host port ------------------ //
 
-const SERVER_PREFIX = 'http://localhost:2000/'
-// const SERVER_PREFIX = 'https://inner-emoji.herokuapp.com/'
+// const SERVER_PREFIX = 'http://localhost:2000/'
+const SERVER_PREFIX = 'https://inner-emoji.herokuapp.com/'
 
 // -------------- Creates blank diary entry ----------------- //
 
@@ -42,7 +42,7 @@ class DiaryEntry extends Component {
 
         <textArea className="diaryTextArea"
 
-          value={this.state.entry} 
+          value={this.state.entry}
           onChange={this.onInputChange} />
 
           <button className="diaryButton"
