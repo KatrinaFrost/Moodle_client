@@ -38,7 +38,7 @@ class DiaryEntry extends Component {
         <h1 className="diaryH1 secondaryFont">Dear Diary</h1>
 
         <p className="DiaryP"> Tell us about your day... You can save as many entries per day as you like!</p>
-        <p className="DiaryEmoji"><span>😊 😔 😁 😡</span></p>
+        <p className="DiaryEmoji"><span>😊</span> <span>😔</span> <span>😁</span> <span>😡</span></p>
 
         <textArea className="diaryTextArea"
 
